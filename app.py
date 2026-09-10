@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, render_template
 
 from routes.auth import auth
@@ -15,7 +17,7 @@ from routes.api import api
 
 app = Flask(__name__)
 
-app.secret_key = "trafficvision_secret_key"
+app.secret_key = os.environ.get("SECRET_KEY", "trafficvision-development-key")
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 @app.after_request
