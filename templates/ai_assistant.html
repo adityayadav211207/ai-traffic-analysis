@@ -1,0 +1,326 @@
+{% extends "base.html" %}
+
+{% block title %}
+AI Assistant | TrafficVision AI Intelligence
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css', v='3.0') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css', v='3.0') }}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+    
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar-container glass-card">
+        <div class="sidebar-brand">
+            <div class="brand-logo-icon">
+                <i class="fa-solid fa-traffic-light glow-icon"></i>
+            </div>
+            <div class="brand-text">
+                <h2>TrafficVision <span class="brand-accent">AI</span></h2>
+                <span class="brand-version">v4.2 Enterprise</span>
+            </div>
+        </div>
+
+        <div class="sidebar-status-pill">
+            <span class="status-pulse active"></span>
+            <span class="status-text">NEURAL ENGINE ACTIVE</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-category">MAIN OVERVIEW</div>
+            <ul class="nav-list">
+                <li>
+                    <a href="{{ url_for('home') }}" class="nav-item">
+                        <i class="fa-solid fa-house-laptop"></i>
+                        <span>Home Overview</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('dashboard.dashboard_page') }}" class="nav-item">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>Live Dashboard</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="nav-category">ANALYTICS & INTELLIGENCE</div>
+            <ul class="nav-list">
+                <li>
+                    <a href="{{ url_for('analytics.telemetry_page') }}" class="nav-item">
+                        <i class="fa-solid fa-car-burst"></i>
+                        <span>Traffic Telemetry</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('analytics.map_page') }}" class="nav-item">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                        <span>Live Hotspot Map</span>
+                        <span class="nav-badge">LIVE</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('prediction.predictor_page') }}" class="nav-item">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>Risk Predictor</span>
+                        <span class="nav-badge" style="background:#8B5CF6;">AI ML</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="{{ url_for('ai.assistant_page') }}" class="nav-item">
+                        <i class="fa-solid fa-brain"></i>
+                        <span>AI Assistant</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('report.reports_page') }}" class="nav-item">
+                        <i class="fa-solid fa-file-contract"></i>
+                        <span>Executive Reports</span>
+                    </a>
+                </li>
+            </ul>
+
+            {% if role == "admin" %}
+            <div class="nav-category">DATA & MANAGEMENT</div>
+            <ul class="nav-list">
+                <li>
+                    <a href="{{ url_for('upload.upload_dataset') }}" class="nav-item">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>Upload Dataset</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('dataset_management.datasets_page') }}" class="nav-item">
+                        <i class="fa-solid fa-database"></i>
+                        <span>Dataset Management</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('manage_users.manage_users_page') }}" class="nav-item">
+                        <i class="fa-solid fa-users-gear"></i>
+                        <span>Manage Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('settings.settings_page') }}" class="nav-item">
+                        <i class="fa-solid fa-sliders"></i>
+                        <span>System Settings</span>
+                    </a>
+                </li>
+            </ul>
+            {% endif %}
+
+            <div class="nav-category">ACCOUNT</div>
+            <ul class="nav-list">
+                <li>
+                    <a href="{{ url_for('auth.profile_page') }}" class="nav-item">
+                        <i class="fa-solid fa-user-gear"></i>
+                        <span>My Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('auth.logout') }}" class="nav-item nav-logout">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Logout Session</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- MAIN CHATGPT WORKSPACE -->
+    <main class="main-wrapper" style="padding-bottom: 20px;">
+        
+        <!-- Topbar -->
+        <header class="topbar-container glass-card" style="margin-bottom: 18px;">
+            <div class="topbar-search">
+                <i class="fa-solid fa-brain search-icon text-cyan"></i>
+                <input type="text" placeholder="TrafficVision Neural Copilot • Ready for NLP Queries..." disabled style="background:transparent; cursor:default;">
+            </div>
+
+            <div class="topbar-actions">
+                <div class="user-profile-chip">
+                    <div class="avatar-box">
+                        <i class="fa-solid fa-user-astronaut"></i>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name">{{ username|capitalize }}</span>
+                        <span class="badge badge-primary">{{ role|upper }}</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ChatGPT Application Box -->
+        <div class="chatgpt-app-container">
+            
+            <!-- Left Chat History Sidebar -->
+            <aside class="chat-history-sidebar" id="chatSidebar">
+                <div class="chat-sidebar-header">
+                    <button type="button" class="btn-new-chat" id="newChatBtn">
+                        <div class="new-chat-left">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>New Analysis Session</span>
+                        </div>
+                        <span class="shortcut-kbd">⌘S</span>
+                    </button>
+                </div>
+
+                <div class="chat-sessions-scroll">
+                    <span class="session-category-label">Recent Conversations</span>
+                    <div id="chatSessionsList">
+                        <!-- Populated dynamically by chatbot.js -->
+                    </div>
+                </div>
+
+                <div class="chat-sidebar-footer">
+                    <div class="model-badge-chip">
+                        <div class="model-name">
+                            <span class="pulse-green"></span>
+                            <span>Gemini 4.2 Pro</span>
+                        </div>
+                        <span>Live Telemetry</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Chat Conversation Workspace -->
+            <section class="chat-main-workspace">
+                
+                <!-- Workspace Header Bar -->
+                <div class="chat-workspace-header">
+                    <div class="header-left-controls">
+                        <button type="button" class="btn-toggle-sidebar" id="toggleSidebarBtn" title="Toggle Sessions Sidebar (Ctrl+S)">
+                            <i class="fa-solid fa-bars-staggered"></i>
+                        </button>
+                        <div class="current-model-dropdown">
+                            <i class="fa-solid fa-robot"></i>
+                            <span>TrafficVision AI 4.2 Pro</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; color: #64748B;"></i>
+                        </div>
+                    </div>
+
+                    <div class="header-right-tools">
+                        <button type="button" class="header-action-btn" id="exportChatBtn" title="Export Conversation as Markdown">
+                            <i class="fa-solid fa-download"></i>
+                            <span>Export</span>
+                        </button>
+                        <button type="button" class="header-action-btn" id="clearChatBtn" title="Clear Current Chat">
+                            <i class="fa-solid fa-trash-can"></i>
+                            <span>Clear</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Messages Container -->
+                <div class="chat-messages-container" id="chatMessagesContainer">
+                    <div class="chat-messages-inner" id="chatMessagesInner">
+                        
+                        <!-- Welcome Hero (Shown when starting fresh) -->
+                        <div class="chat-welcome-hero" id="chatWelcomeHero">
+                            <div class="hero-avatar-glow">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
+                            <h2>How can I assist your traffic analysis today?</h2>
+                            <p>Ask natural language questions about accident hotspots, weather impact correlation, high-risk vehicles, and AI safety mitigation recommendations.</p>
+
+                            <!-- 4 ChatGPT-Style Starter Cards -->
+                            <div class="starter-prompts-grid">
+                                <div class="starter-prompt-card" onclick="sendPrompt('Which road is most dangerous and has highest accident risk?')">
+                                    <div class="prompt-card-header">
+                                        <i class="fa-solid fa-fire text-rose"></i>
+                                        <span>Identify Dangerous Corridors</span>
+                                    </div>
+                                    <p class="prompt-card-desc">Pinpoint top collision blackspots and accident density on monitored highways.</p>
+                                </div>
+
+                                <div class="starter-prompt-card" onclick="sendPrompt('Why did accidents increase? Analyze weather and visibility factors')">
+                                    <div class="prompt-card-header">
+                                        <i class="fa-solid fa-cloud-bolt text-cyan"></i>
+                                        <span>Weather Impact Analysis</span>
+                                    </div>
+                                    <p class="prompt-card-desc">Correlate rain, fog, daylight, and clear conditions with incident escalation.</p>
+                                </div>
+
+                                <div class="starter-prompt-card" onclick="sendPrompt('Suggest AI safety recommendations and mitigation action plan')">
+                                    <div class="prompt-card-header">
+                                        <i class="fa-solid fa-shield-halved text-emerald"></i>
+                                        <span>Safety Mitigation Directives</span>
+                                    </div>
+                                    <p class="prompt-card-desc">Generate engineering interventions, speed radars, and enforcement plans.</p>
+                                </div>
+
+                                <div class="starter-prompt-card" onclick="sendPrompt('Generate an executive summary of active dataset telemetry and KPIs')">
+                                    <div class="prompt-card-header">
+                                        <i class="fa-solid fa-chart-pie text-violet"></i>
+                                        <span>Executive Telemetry Summary</span>
+                                    </div>
+                                    <p class="prompt-card-desc">Receive a complete breakdown of total crashes, fatal cases, and safety scores.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Floating ChatGPT Input Area -->
+                <div class="chat-input-area-wrapper">
+                    <!-- Quick Suggestions Carousel -->
+                    <div class="quick-prompt-chips-carousel">
+                        <button type="button" class="mini-prompt-chip" onclick="sendPrompt('Which road is most dangerous?')">
+                            <i class="fa-solid fa-fire text-rose"></i> Which road is most dangerous?
+                        </button>
+                        <button type="button" class="mini-prompt-chip" onclick="sendPrompt('Why did accidents increase?')">
+                            <i class="fa-solid fa-cloud-rain text-cyan"></i> Why did accidents increase?
+                        </button>
+                        <button type="button" class="mini-prompt-chip" onclick="sendPrompt('Which vehicle type causes most accidents?')">
+                            <i class="fa-solid fa-car-side text-amber"></i> High-risk vehicle classes?
+                        </button>
+                        <button type="button" class="mini-prompt-chip" onclick="sendPrompt('Suggest safety recommendations')">
+                            <i class="fa-solid fa-wand-magic-sparkles text-emerald"></i> Suggest safety mitigation
+                        </button>
+                        <button type="button" class="mini-prompt-chip" onclick="sendPrompt('Generate executive summary')">
+                            <i class="fa-solid fa-chart-line text-violet"></i> Executive summary
+                        </button>
+                    </div>
+
+                    <!-- Floating Input Bar -->
+                    <div class="floating-chat-input-box">
+                        <span class="input-prompt-icon">&gt;</span>
+
+                        <textarea 
+                            id="chatTextarea" 
+                            class="chat-textarea" 
+                            placeholder="Ask Copilot or type query (/hotspots, /weather, /mitigate)..." 
+                            rows="1"
+                        ></textarea>
+
+                        <div class="input-action-buttons">
+                            <button type="button" class="voice-input-btn" id="voiceInputBtn" title="Speak question (Speech-to-Text)">
+                                <i class="fa-solid fa-microphone"></i>
+                            </button>
+                            <button type="button" class="btn-send-chat" id="sendChatBtn" disabled title="Send Message">
+                                <i class="fa-solid fa-arrow-up"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-disclaimer">
+                        TrafficVision AI can analyze dataset telemetry, predict incident hotspots, and generate safety mitigations. Verify critical safety decisions.
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static', filename='js/chatbot.js', v='3.0') }}"></script>
+{% endblock %}

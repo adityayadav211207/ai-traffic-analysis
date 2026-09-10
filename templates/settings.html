@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block title %}
+System Settings | TrafficVision AI
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css', v='2.5') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-layout">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar-container glass-card">
+        <div class="sidebar-brand">
+            <div class="brand-logo-icon">
+                <i class="fa-solid fa-traffic-light glow-icon"></i>
+            </div>
+            <div class="brand-text">
+                <h2>TrafficVision <span class="brand-accent">AI</span></h2>
+                <span class="brand-version">v2.5 Enterprise</span>
+            </div>
+        </div>
+
+        <div class="sidebar-status-pill">
+            <span class="status-pulse active"></span>
+            <span class="status-text">NEURAL ENGINE ACTIVE</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-category">MAIN OVERVIEW</div>
+            <ul class="nav-list">
+                <li>
+                    <a href="{{ url_for('home') }}" class="nav-item">
+                        <i class="fa-solid fa-house-laptop"></i>
+                        <span>Home Overview</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('dashboard.dashboard_page') }}" class="nav-item">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>Live Dashboard</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="nav-category">ANALYTICS & INTELLIGENCE</div>
+            <ul class="nav-list">
+                <li>
+                    <a href="{{ url_for('analytics.telemetry_page') }}" class="nav-item">
+                        <i class="fa-solid fa-car-burst"></i>
+                        <span>Traffic Telemetry</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('analytics.map_page') }}" class="nav-item">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                        <span>Live Hotspot Map</span>
+                        <span class="nav-badge">LIVE</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('ai.assistant_page') }}" class="nav-item">
+                        <i class="fa-solid fa-brain"></i>
+                        <span>AI Assistant</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('report.reports_page') }}" class="nav-item">
+                        <i class="fa-solid fa-file-contract"></i>
+                        <span>Executive Reports</span>
+                    </a>
+                </li>
+            </ul>
+
+            {% if role == "admin" %}
+            <div class="nav-category">DATA & MANAGEMENT</div>
+            <ul class="nav-list">
+                <li>
+                    <a href="{{ url_for('upload.upload_dataset') }}" class="nav-item">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>Upload Dataset</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('dataset_management.datasets_page') }}" class="nav-item">
+                        <i class="fa-solid fa-database"></i>
+                        <span>Dataset Management</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('manage_users.manage_users_page') }}" class="nav-item">
+                        <i class="fa-solid fa-users-gear"></i>
+                        <span>Manage Users</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="{{ url_for('settings.settings_page') }}" class="nav-item">
+                        <i class="fa-solid fa-sliders"></i>
+                        <span>System Settings</span>
+                    </a>
+                </li>
+            </ul>
+            {% endif %}
+
+            <div class="nav-category">ACCOUNT</div>
+            <ul class="nav-list">
+                <li>
+                    <a href="{{ url_for('auth.profile_page') }}" class="nav-item">
+                        <i class="fa-solid fa-user-gear"></i>
+                        <span>My Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('auth.logout') }}" class="nav-item nav-logout">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Logout Session</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <main class="main-wrapper">
+        <header class="topbar-container glass-card">
+            <div class="topbar-search">
+                <i class="fa-solid fa-sliders search-icon"></i>
+                <input type="text" placeholder="Platform Configuration Hub..." disabled style="background:transparent;">
+            </div>
+
+            <div class="topbar-actions">
+                <div class="user-profile-chip">
+                    <div class="avatar-box">
+                        <i class="fa-solid fa-user-astronaut"></i>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name">{{ username|capitalize }}</span>
+                        <span class="badge badge-primary">{{ role|upper }}</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages-wrapper" style="margin-top:20px;">
+            {% for category, message in messages %}
+            <div class="flash-banner flash-success">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>{{ message }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <section class="dashboard-hero">
+            <div class="hero-text-content">
+                <div class="hero-badge">
+                    <i class="fa-solid fa-gear text-primary"></i>
+                    <span>Platform Preferences</span>
+                </div>
+                <h1>System & AI <span class="gradient-text">Configuration</span></h1>
+                <p>Configure neural model thresholds, automated telemetry polling frequency, alert email channels, and theme preferences.</p>
+            </div>
+        </section>
+
+        <!-- SETTINGS FORM CARD -->
+        <section class="admin-quick-hub glass-card" style="margin-top:24px; padding:30px;">
+            <form method="POST" action="{{ url_for('settings.settings_page') }}">
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:24px; margin-bottom:24px;">
+                    <div>
+                        <label style="font-weight:600; margin-bottom:8px; display:block;">🤖 AI Model Confidence Sensitivity</label>
+                        <select name="ai_sensitivity" class="time-filter-dropdown" style="width:100%; padding:12px; border-radius:8px;">
+                            <option value="0.95">Strict (95% Confidence Threshold)</option>
+                            <option value="0.85" selected>Balanced (85% Confidence Threshold)</option>
+                            <option value="0.75">Permissive (75% Confidence Threshold)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label style="font-weight:600; margin-bottom:8px; display:block;">⏱️ Live Telemetry Sync Interval</label>
+                        <select name="refresh_rate" class="time-filter-dropdown" style="width:100%; padding:12px; border-radius:8px;">
+                            <option value="10">10 Seconds (Real-time Stream)</option>
+                            <option value="30" selected>30 Seconds (Default)</option>
+                            <option value="60">60 Seconds (Low Overhead)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label style="font-weight:600; margin-bottom:8px; display:block;">📧 Critical Alert Notification Email</label>
+                        <input type="email" name="alert_email" value="{{ settings.alert_email }}" 
+                               style="width:100%; padding:12px; border-radius:8px; border:1px solid #CBD5E1;">
+                    </div>
+
+                    <div>
+                        <label style="font-weight:600; margin-bottom:8px; display:block;">🔑 Gemini Neural API Key</label>
+                        <input type="password" value="{{ settings.api_key }}" readonly 
+                               style="width:100%; padding:12px; border-radius:8px; border:1px solid #CBD5E1; background:#F8FAFC;">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="padding:14px 28px;">
+                    <i class="fa-solid fa-floppy-disk"></i> Save System Preferences
+                </button>
+            </form>
+        </section>
+
+        <footer class="dashboard-footer" style="margin-top:40px;">
+            <p>© 2026 TrafficVision AI Platform | System Operations Hub</p>
+        </footer>
+    </main>
+</div>
+
+{% endblock %}

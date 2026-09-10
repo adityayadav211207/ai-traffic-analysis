@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}
+Upload Dataset | TrafficVision AI
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css', v='2.5') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="upload-container">
+
+    <div class="upload-card">
+
+        <div class="upload-header">
+
+            <div class="upload-icon">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+            </div>
+
+            <h1>Upload Traffic Dataset</h1>
+
+            <p>
+                Upload a CSV file to analyze traffic accidents,
+                generate KPIs and AI insights.
+            </p>
+
+        </div>
+
+        <form action="{{ url_for('upload.upload_dataset') }}" method="POST" enctype="multipart/form-data">
+
+            <label for="dataset" class="drop-area">
+
+                <i class="fa-solid fa-file-csv"></i>
+
+                <h3>Drag & Drop CSV File</h3>
+
+                <p>or click here to browse</p>
+
+                <input type="file" id="dataset" name="dataset" accept=".csv" required hidden>
+
+            </label>
+
+            <div id="file-name">
+
+                No file selected
+
+            </div>
+
+            <button type="submit" class="upload-btn">
+
+                <i class="fa-solid fa-upload"></i>
+
+                Upload Dataset
+
+            </button>
+
+        </form>
+
+        {% if message %}
+
+        <div class="success-box">
+
+            <h3>{{ message }}</h3>
+
+            {% if filename %}
+
+            <div class="dataset-info">
+                <p>
+                    <strong>Remaining Missing Values :</strong>
+                    {{ missing_values }}
+                </p>
+
+                <p>
+                    <strong>Clean Dataset Saved :</strong><br>
+                    {{ clean_path }}
+                </p>
+                <p><strong>File :</strong> {{ filename }}</p>
+
+                <p><strong>Total Rows :</strong> {{ rows }}</p>
+
+                <p><strong>Total Columns :</strong> {{ columns }}</p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+{% endblock %}

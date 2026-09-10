@@ -1,0 +1,442 @@
+{% extends "base.html" %}
+
+{% block title %}
+AI Risk Predictor | TrafficVision AI Intelligence
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css', v='2.5') }}">
+<style>
+    .predictor-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 24px;
+        margin-top: 20px;
+    }
+    .param-card {
+        background: #0F172A;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: var(--radius-lg);
+        padding: 26px;
+        box-shadow: var(--shadow-md);
+    }
+    .form-group-custom {
+        margin-bottom: 20px;
+    }
+    .form-label-custom {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #94A3B8;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+    }
+    .form-select-custom, .form-range-custom {
+        width: 100%;
+        background: #1E293B;
+        border: 1px solid #334155;
+        border-radius: var(--radius-md);
+        color: #F8FAFC;
+        padding: 12px 16px;
+        font-size: 0.95rem;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+    .form-select-custom:focus {
+        border-color: var(--primary);
+    }
+    .gauge-card {
+        background: #0F172A;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: var(--radius-lg);
+        padding: 26px;
+        text-align: center;
+        box-shadow: var(--shadow-md);
+    }
+    .risk-score-display {
+        font-size: 3.8rem;
+        font-weight: 800;
+        letter-spacing: -1px;
+        line-height: 1;
+        margin: 16px 0;
+        font-family: 'JetBrains Mono', monospace;
+    }
+    .risk-critical { color: #EF4444; }
+    .risk-danger { color: #F97316; }
+    .risk-warning { color: #F59E0B; }
+    .risk-success { color: #10B981; }
+
+    .factor-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        background: #1E293B;
+        border-radius: var(--radius-md);
+        margin-bottom: 10px;
+        border-left: 4px solid var(--primary);
+    }
+    .factor-high {
+        border-left-color: #EF4444;
+    }
+    .mitigation-box {
+        background: rgba(16, 185, 129, 0.08);
+        border: 1px solid rgba(16, 185, 129, 0.25);
+        border-radius: var(--radius-md);
+        padding: 16px;
+        margin-top: 18px;
+        text-align: left;
+    }
+    .mitigation-list {
+        list-style: none;
+        padding: 0;
+        margin: 10px 0 0 0;
+    }
+    .mitigation-list li {
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+        color: #E2E8F0;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .mitigation-list li i {
+        color: #10B981;
+        margin-top: 3px;
+    }
+    .slider-val-badge {
+        background: var(--primary);
+        color: #FFFFFF;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    @media (max-width: 900px) {
+        .predictor-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar-container glass-card">
+        <div class="sidebar-brand">
+            <div class="brand-logo-icon">
+                <i class="fa-solid fa-traffic-light glow-icon"></i>
+            </div>
+            <div class="brand-text">
+                <h2>TrafficVision <span class="brand-accent">AI</span></h2>
+                <span class="brand-version">v2.5 Enterprise</span>
+            </div>
+        </div>
+
+        <div class="sidebar-status-pill">
+            <span class="status-pulse active"></span>
+            <span class="status-text">PREDICTIVE ML LOADED</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-category">MAIN OVERVIEW</div>
+            <ul class="nav-list">
+                <li>
+                    <a href="{{ url_for('home') }}" class="nav-item">
+                        <i class="fa-solid fa-house-laptop"></i>
+                        <span>Home Overview</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('dashboard.dashboard_page') }}" class="nav-item">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>Live Dashboard</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="nav-category">ANALYTICS & INTELLIGENCE</div>
+            <ul class="nav-list">
+                <li>
+                    <a href="{{ url_for('analytics.telemetry_page') }}" class="nav-item">
+                        <i class="fa-solid fa-car-burst"></i>
+                        <span>Traffic Telemetry</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('analytics.map_page') }}" class="nav-item">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                        <span>Live Hotspot Map</span>
+                        <span class="nav-badge">LIVE</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="{{ url_for('prediction.predictor_page') }}" class="nav-item">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>Risk Predictor</span>
+                        <span class="nav-badge" style="background:#8B5CF6;">AI ML</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('ai.assistant_page') }}" class="nav-item">
+                        <i class="fa-solid fa-brain"></i>
+                        <span>AI Assistant</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('report.reports_page') }}" class="nav-item">
+                        <i class="fa-solid fa-file-contract"></i>
+                        <span>Executive Reports</span>
+                    </a>
+                </li>
+            </ul>
+
+            {% if role == "admin" %}
+            <div class="nav-category">DATA & MANAGEMENT</div>
+            <ul class="nav-list">
+                <li>
+                    <a href="{{ url_for('upload.upload_dataset') }}" class="nav-item">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>Upload Dataset</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('dataset_management.datasets_page') }}" class="nav-item">
+                        <i class="fa-solid fa-database"></i>
+                        <span>Dataset Management</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('manage_users.manage_users_page') }}" class="nav-item">
+                        <i class="fa-solid fa-users-gear"></i>
+                        <span>User Management</span>
+                    </a>
+                </li>
+            </ul>
+            {% endif %}
+        </nav>
+
+        <div class="sidebar-user-footer">
+            <div class="user-avatar-badge">{{ username[0]|upper }}</div>
+            <div class="user-meta-info">
+                <span class="user-name-label">{{ username }}</span>
+                <span class="user-role-tag">{{ role|capitalize }}</span>
+            </div>
+            <a href="{{ url_for('auth.logout') }}" class="logout-btn" title="Logout">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-viewport">
+        <header class="viewport-header glass-card">
+            <div>
+                <h1 class="page-title"><i class="fa-solid fa-wand-magic-sparkles" style="color:#8B5CF6; margin-right:10px;"></i>AI Accident Risk Simulator & Predictor</h1>
+                <p class="page-subtitle">Interactive What-If ML inference engine powered by Random Forest & Gradient Boosting</p>
+            </div>
+            <div class="header-action-group">
+                <a href="{{ url_for('analytics.map_page') }}" class="btn btn-secondary">
+                    <i class="fa-solid fa-map"></i> View GIS Hotspots
+                </a>
+            </div>
+        </header>
+
+        <div class="predictor-grid">
+            <!-- INPUT CONTROLS -->
+            <div class="param-card">
+                <h3 style="font-size:1.15rem; font-weight:700; color:#F8FAFC; margin-bottom:20px; display:flex; align-items:center; gap:10px;">
+                    <i class="fa-solid fa-sliders" style="color:var(--primary);"></i> Simulation Parameters
+                </h3>
+                
+                <form id="predictionForm" method="POST" action="{{ url_for('prediction.predictor_page') }}">
+                    <div class="form-group-custom">
+                        <label class="form-label-custom"><i class="fa-solid fa-road"></i> Corridor / Highway</label>
+                        <select name="road" id="roadSelect" class="form-select-custom">
+                            {% for r in options.roads %}
+                            <option value="{{ r }}" {% if r == selected.road %}selected{% endif %}>{{ r }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                        <div class="form-group-custom">
+                            <label class="form-label-custom"><i class="fa-solid fa-city"></i> City / District</label>
+                            <select name="city" id="citySelect" class="form-select-custom">
+                                {% for c in options.cities %}
+                                <option value="{{ c }}" {% if c == selected.city %}selected{% endif %}>{{ c }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group-custom">
+                            <label class="form-label-custom"><i class="fa-solid fa-truck"></i> Vehicle Class</label>
+                            <select name="vehicle" id="vehicleSelect" class="form-select-custom">
+                                {% for v in options.vehicles %}
+                                <option value="{{ v }}" {% if v == selected.vehicle %}selected{% endif %}>{{ v }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                        <div class="form-group-custom">
+                            <label class="form-label-custom"><i class="fa-solid fa-cloud-showers-heavy"></i> Weather Condition</label>
+                            <select name="weather" id="weatherSelect" class="form-select-custom">
+                                {% for w in options.weathers %}
+                                <option value="{{ w }}" {% if w == selected.weather %}selected{% endif %}>{{ w }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group-custom">
+                            <label class="form-label-custom"><i class="fa-solid fa-gauge-high"></i> Traffic Density</label>
+                            <select name="density" id="densitySelect" class="form-select-custom">
+                                {% for d in options.densities %}
+                                <option value="{{ d }}" {% if d == selected.density %}selected{% endif %}>{{ d }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group-custom">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                            <label class="form-label-custom" style="margin:0;"><i class="fa-solid fa-clock"></i> Time of Day (24-Hr)</label>
+                            <span id="hourBadge" class="slider-val-badge">{{ "%02d:00"|format(selected.hour) }} hrs</span>
+                        </div>
+                        <input type="range" name="hour" id="hourSlider" min="0" max="23" value="{{ selected.hour }}" class="form-range-custom" style="accent-color:var(--primary); cursor:pointer;">
+                    </div>
+
+                    <button type="submit" id="simulateBtn" class="btn btn-primary" style="width:100%; padding:14px; font-weight:700; font-size:1rem; margin-top:10px;">
+                        <i class="fa-solid fa-bolt"></i> Run AI Simulation
+                    </button>
+                </form>
+            </div>
+
+            <!-- RESULT DISPLAY -->
+            <div class="gauge-card">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-size:0.85rem; font-weight:600; color:#94A3B8; text-transform:uppercase;">Predicted Collision Risk</span>
+                    <span id="confBadge" style="background:rgba(255,255,255,0.08); padding:4px 10px; border-radius:12px; font-size:0.8rem; color:#A7F3D0;">
+                        Confidence: {{ result.confidence }}%
+                    </span>
+                </div>
+
+                <div id="riskScoreVal" class="risk-score-display risk-{{ result.severity_badge }}">
+                    {{ result.risk_score }}<span style="font-size:2rem; vertical-align:top;">%</span>
+                </div>
+
+                <div id="severityPill" style="display:inline-block; padding:6px 18px; border-radius:20px; font-weight:700; font-size:0.95rem; margin-bottom:20px; text-transform:uppercase; letter-spacing:0.5px;" class="badge badge-{{ result.severity_badge }}">
+                    <i class="fa-solid fa-triangle-exclamation"></i> {{ result.severity_label }}
+                </div>
+
+                <!-- Factor Breakdown -->
+                <div style="text-align:left; margin-top:10px;">
+                    <h4 style="font-size:0.9rem; font-weight:600; color:#94A3B8; text-transform:uppercase; margin-bottom:12px;">Explainability & Factor Weights</h4>
+                    <div id="factorsContainer">
+                        {% for f in result.factor_breakdown %}
+                        <div class="factor-item {% if f.type == 'high' %}factor-high{% endif %}">
+                            <div>
+                                <div style="font-size:0.88rem; font-weight:600; color:#F8FAFC;">{{ f.detail }}</div>
+                                <div style="font-size:0.78rem; color:#94A3B8;">{{ f.factor }}</div>
+                            </div>
+                            <span style="font-size:0.85rem; font-weight:700; color:{% if f.type == 'high' %}#EF4444{% else %}#10B981{% endif %};">
+                                {{ f.impact }}
+                            </span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Mitigation Advice -->
+                <div class="mitigation-box">
+                    <div style="font-size:0.88rem; font-weight:700; color:#10B981; display:flex; align-items:center; gap:8px;">
+                        <i class="fa-solid fa-shield-halved"></i> AI Safety Mitigation Action Plan
+                    </div>
+                    <ul id="mitigationList" class="mitigation-list">
+                        {% for rec in result.recommendations %}
+                        <li><i class="fa-solid fa-circle-check"></i> <span>{{ rec }}</span></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    const hourSlider = document.getElementById('hourSlider');
+    const hourBadge = document.getElementById('hourBadge');
+
+    hourSlider.addEventListener('input', function() {
+        const val = String(this.value).padStart(2, '0');
+        hourBadge.textContent = `${val}:00 hrs`;
+    });
+
+    // Real-time async updates when selections change
+    const formElements = ['roadSelect', 'citySelect', 'vehicleSelect', 'weatherSelect', 'densitySelect', 'hourSlider'];
+    
+    async function triggerAsyncPrediction() {
+        const payload = {
+            road: document.getElementById('roadSelect').value,
+            city: document.getElementById('citySelect').value,
+            vehicle: document.getElementById('vehicleSelect').value,
+            weather: document.getElementById('weatherSelect').value,
+            density: document.getElementById('densitySelect').value,
+            hour: parseInt(document.getElementById('hourSlider').value)
+        };
+
+        try {
+            const res = await fetch("{{ url_for('prediction.api_predict_risk') }}", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+            
+            if (data.risk_score !== undefined) {
+                // Update score
+                const scoreElem = document.getElementById('riskScoreVal');
+                scoreElem.innerHTML = `${data.risk_score}<span style="font-size:2rem; vertical-align:top;">%</span>`;
+                scoreElem.className = `risk-score-display risk-${data.severity_badge}`;
+
+                // Update badge
+                const sevPill = document.getElementById('severityPill');
+                sevPill.className = `badge badge-${data.severity_badge}`;
+                sevPill.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> ${data.severity_label}`;
+
+                // Update confidence
+                document.getElementById('confBadge').textContent = `Confidence: ${data.confidence}%`;
+
+                // Update factors
+                const fContainer = document.getElementById('factorsContainer');
+                fContainer.innerHTML = data.factor_breakdown.map(f => `
+                    <div class="factor-item ${f.type === 'high' ? 'factor-high' : ''}">
+                        <div>
+                            <div style="font-size:0.88rem; font-weight:600; color:#F8FAFC;">${f.detail}</div>
+                            <div style="font-size:0.78rem; color:#94A3B8;">${f.factor}</div>
+                        </div>
+                        <span style="font-size:0.85rem; font-weight:700; color:${f.type === 'high' ? '#EF4444' : '#10B981'};">
+                            ${f.impact}
+                        </span>
+                    </div>
+                `).join('');
+
+                // Update mitigations
+                const mList = document.getElementById('mitigationList');
+                mList.innerHTML = data.recommendations.map(r => `
+                    <li><i class="fa-solid fa-circle-check"></i> <span>${r}</span></li>
+                `).join('');
+            }
+        } catch (err) {
+            console.error("Async prediction error:", err);
+        }
+    }
+
+    formElements.forEach(id => {
+        document.getElementById(id).addEventListener('change', triggerAsyncPrediction);
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dataset Details
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-container">
+
+    <div class="page-header">
+
+        <h1>📂 Dataset Details</h1>
+
+    </div>
+
+    <div class="card">
+
+        <table class="users-table">
+
+            <tr>
+                <th>ID</th>
+                <td>{{ dataset.id }}</td>
+            </tr>
+
+            <tr>
+                <th>Filename</th>
+                <td>{{ dataset.filename }}</td>
+            </tr>
+
+            <tr>
+                <th>Uploaded By</th>
+                <td>{{ dataset.uploaded_by }}</td>
+            </tr>
+
+            <tr>
+                <th>Uploaded At</th>
+                <td>{{ dataset.uploaded_at }}</td>
+            </tr>
+
+            <tr>
+                <th>Status</th>
+
+                <td>
+
+                    {% if dataset.is_active == 1 %}
+
+                    ✅ Active
+
+                    {% else %}
+
+                    Inactive
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+        </table>
+
+        <br>
+
+        <a href="{{ url_for('dataset_management.datasets_page') }}" class="btn-edit">
+
+            ← Back
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

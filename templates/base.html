@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TrafficVision AI - Enterprise AI-Powered Traffic Safety & Analytics Platform">
+    <title>
+        {% block title %}
+        TrafficVision AI | Intelligence Platform
+        {% endblock %}
+    </title>
+
+    <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome 6.7 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Global CSS with Cache-Busting -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', v='2.5') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css', v='2.5') }}">
+
+    <!-- Page Specific CSS -->
+    {% block css %}
+    {% endblock %}
+</head>
+
+<body>
+    <div id="app-wrapper">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    {% if session.get('username') %}
+    <!-- Global Compact Floating AI Copilot Widget -->
+    <div class="global-copilot-widget" id="globalCopilotWidget">
+        <!-- Floating Trigger Button -->
+        <button type="button" class="copilot-floating-trigger" id="copilotTriggerBtn" title="Open Compact AI Copilot (Ctrl+Space)">
+            <div class="copilot-trigger-icon">
+                <i class="fa-solid fa-robot"></i>
+                <span class="copilot-pulse-dot"></span>
+            </div>
+            <span class="copilot-trigger-label">AI Copilot</span>
+        </button>
+
+        <!-- Compact Floating Popover Window -->
+        <div class="copilot-compact-popover" id="copilotPopover">
+            <div class="popover-header">
+                <div class="popover-title">
+                    <div class="popover-avatar">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <div>
+                        <h4>TrafficVision Copilot</h4>
+                        <span class="popover-status"><span class="pulse-dot-green"></span> Gemini 4.2 Active</span>
+                    </div>
+                </div>
+                <div class="popover-actions">
+                    <a href="{{ url_for('ai.assistant_page') }}" class="popover-btn" title="Expand Full Workspace">
+                        <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                    </a>
+                    <button type="button" class="popover-btn" id="closeCopilotPopover" title="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Chips -->
+            <div class="popover-chips">
+                <button type="button" class="p-chip" onclick="sendQuickCopilot('Which road is most dangerous?')">🔥 Hotspots</button>
+                <button type="button" class="p-chip" onclick="sendQuickCopilot('Why did accidents increase?')">🌧️ Weather</button>
+                <button type="button" class="p-chip" onclick="sendQuickCopilot('Suggest safety recommendations')">⚡ Mitigation</button>
+                <button type="button" class="p-chip" onclick="sendQuickCopilot('Generate executive summary')">📊 Summary</button>
+            </div>
+
+            <!-- Messages Stream -->
+            <div class="popover-messages" id="popoverMessages">
+                <div class="popover-bubble popover-ai">
+                    👋 <strong>Copilot Telemetry Online</strong><br>
+                    Ask any question about active incident vectors, hotspots, or safety mitigations.
+                </div>
+            </div>
+
+            <!-- Compact Input Bar -->
+            <div class="popover-input-bar">
+                <input type="text" id="popoverInput" placeholder="Ask Copilot... (Enter to send)" autocomplete="off">
+                <button type="button" id="popoverSendBtn" title="Send">
+                    <i class="fa-solid fa-arrow-up"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copilot Global Script -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const trigger = document.getElementById("copilotTriggerBtn");
+        const popover = document.getElementById("copilotPopover");
+        const closeBtn = document.getElementById("closeCopilotPopover");
+        const popInput = document.getElementById("popoverInput");
+        const popSend = document.getElementById("popoverSendBtn");
+        const popMessages = document.getElementById("popoverMessages");
+
+        if (trigger && popover) {
+            trigger.addEventListener("click", () => {
+                popover.classList.toggle("open");
+                if (popover.classList.contains("open") && popInput) {
+                    setTimeout(() => popInput.focus(), 150);
+                }
+            });
+        }
+
+        if (closeBtn && popover) {
+            closeBtn.addEventListener("click", () => {
+                popover.classList.remove("open");
+            });
+        }
+
+        // Global hotkey Ctrl+Space
+        document.addEventListener("keydown", (e) => {
+            if (e.ctrlKey && e.code === "Space") {
+                e.preventDefault();
+                if (popover) {
+                    popover.classList.toggle("open");
+                    if (popover.classList.contains("open") && popInput) {
+                        setTimeout(() => popInput.focus(), 150);
+                    }
+                }
+            }
+        });
+
+        window.sendQuickCopilot = function(text) {
+            if (popInput) {
+                popInput.value = text;
+                submitPopoverQuery();
+            }
+        };
+
+        if (popSend) {
+            popSend.addEventListener("click", submitPopoverQuery);
+        }
+
+        if (popInput) {
+            popInput.addEventListener("keydown", (e) => {
+                if (e.key === "Enter") {
+                    e.preventDefault();
+                    submitPopoverQuery();
+                }
+            });
+        }
+
+        function submitPopoverQuery() {
+            if (!popInput) return;
+            const query = popInput.value.trim();
+            if (!query) return;
+
+            popInput.value = "";
+
+            // Append User message
+            const userMsg = document.createElement("div");
+            userMsg.className = "popover-bubble popover-user";
+            userMsg.textContent = query;
+            popMessages.appendChild(userMsg);
+            popMessages.scrollTop = popMessages.scrollHeight;
+
+            // Typing indicator
+            const typing = document.createElement("div");
+            typing.className = "popover-bubble popover-ai popover-typing";
+            typing.innerHTML = `<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>`;
+            popMessages.appendChild(typing);
+            popMessages.scrollTop = popMessages.scrollHeight;
+
+            fetch("/api/ai-chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: query })
+            })
+            .then(res => res.json())
+            .then(data => {
+                typing.remove();
+                const aiMsg = document.createElement("div");
+                aiMsg.className = "popover-bubble popover-ai";
+                aiMsg.innerHTML = (data.response || "No response received.").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+                popMessages.appendChild(aiMsg);
+                popMessages.scrollTop = popMessages.scrollHeight;
+            })
+            .catch(() => {
+                typing.remove();
+                const aiMsg = document.createElement("div");
+                aiMsg.className = "popover-bubble popover-ai";
+                aiMsg.textContent = "Error communicating with AI engine.";
+                popMessages.appendChild(aiMsg);
+                popMessages.scrollTop = popMessages.scrollHeight;
+            });
+        }
+    });
+    </script>
+    {% endif %}
+
+    {% block js %}
+    {% endblock %}
+</body>
+
+</html>

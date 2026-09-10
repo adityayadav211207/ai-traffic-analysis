@@ -1,0 +1,35 @@
+@import url("manage_users.css");
+
+.btn-active {
+
+    background: #16a34a;
+
+    color: white;
+
+    padding: 8px 16px;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    display: inline-block;
+
+    font-weight: 600;
+
+}
+
+.btn-edit {
+
+    background: #2563eb;
+
+    color: white;
+
+    padding: 8px 16px;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    display: inline-block;
+
+}

@@ -1,0 +1,201 @@
+Accident_ID,Date,Time,Road_Name,City,Vehicle_Type,Weather,Severity,Traffic_Density,Fatalities,Injuries,Latitude,Longitude
+ACC0001,2025-01-09,02:10,NH-48,Gurugram,Bike,Clear,Fatal,High,1,3,28.3257,77.0374
+ACC0002,2025-06-15,07:36,Ring Road,Noida,SUV,Rain,Fatal,Medium,1,1,28.3038,77.0617
+ACC0003,2025-02-01,01:44,GT Road,Delhi,Truck,Fog,Fatal,Low,1,2,28.3335,77.0089
+ACC0004,2025-04-25,07:32,MG Road,Jaipur,Bus,Cloudy,Medium,Low,0,4,28.3035,77.0244
+ACC0005,2025-01-19,06:32,Airport Road,Delhi,Truck,Fog,Low,Medium,0,1,28.3922,77.0422
+ACC0006,2025-01-26,10:48,Airport Road,Jaipur,Bike,Cloudy,Low,Medium,0,0,28.3731,77.0874
+ACC0007,2025-03-31,10:30,Airport Road,Jaipur,SUV,Fog,Low,Medium,0,1,28.3363,77.0764
+ACC0008,2025-06-25,10:58,GT Road,Noida,Bike,Clear,Fatal,Medium,1,5,28.3768,77.0036
+ACC0009,2025-02-26,07:23,Ring Road,Faridabad,SUV,Clear,Low,High,0,2,28.337,77.072
+ACC0010,2025-01-03,06:28,GT Road,Delhi,Auto,Cloudy,Fatal,High,1,2,28.3987,77.0319
+ACC0011,2025-05-30,02:22,MG Road,Faridabad,SUV,Fog,High,Low,0,4,28.3601,77.0156
+ACC0012,2025-05-31,00:37,GT Road,Delhi,SUV,Rain,Low,Medium,0,1,28.3869,77.0656
+ACC0013,2025-04-18,16:30,Ring Road,Jaipur,SUV,Clear,Low,High,0,1,28.3896,77.0957
+ACC0014,2025-06-14,21:45,MG Road,Faridabad,Bus,Rain,Medium,High,0,4,28.3593,77.0174
+ACC0015,2025-01-01,01:02,NH-48,Faridabad,Bike,Rain,Fatal,High,1,1,28.3768,77.0335
+ACC0016,2025-02-08,13:02,Airport Road,Jaipur,Auto,Rain,Fatal,Medium,1,1,28.3766,77.0529
+ACC0017,2025-03-24,08:50,NH-48,Faridabad,SUV,Clear,Medium,High,0,4,28.381,77.0482
+ACC0018,2025-03-06,21:39,Airport Road,Faridabad,Bike,Cloudy,High,Medium,0,4,28.3558,77.0158
+ACC0019,2025-01-24,04:54,MG Road,Noida,Auto,Cloudy,Low,High,0,1,28.3221,77.0665
+ACC0020,2025-04-03,06:22,Airport Road,Delhi,Bike,Fog,Fatal,High,1,4,28.3624,77.0283
+ACC0021,2025-01-21,09:40,MG Road,Jaipur,SUV,Cloudy,High,Low,0,3,28.317,77.0709
+ACC0022,2025-04-04,03:40,GT Road,Jaipur,Bus,Clear,High,High,0,2,28.3302,77.0438
+ACC0023,2025-06-13,18:33,Airport Road,Delhi,SUV,Rain,High,Low,0,0,28.3657,77.0171
+ACC0024,2025-06-26,11:05,MG Road,Noida,Bike,Rain,High,Medium,0,4,28.3573,77.0344
+ACC0025,2025-01-17,20:17,Outer Ring Road,Gurugram,Truck,Cloudy,Fatal,High,1,3,28.3715,77.0625
+ACC0026,2025-01-19,18:58,GT Road,Delhi,Auto,Clear,High,Medium,0,5,28.3009,77.0502
+ACC0027,2025-02-02,01:10,Ring Road,Delhi,Bike,Fog,Low,Medium,0,2,28.3863,77.0322
+ACC0028,2025-04-19,04:42,Airport Road,Faridabad,Truck,Rain,Medium,Medium,0,3,28.3572,77.0257
+ACC0029,2025-03-08,08:44,GT Road,Noida,Bike,Rain,Fatal,High,1,5,28.3759,77.0425
+ACC0030,2025-06-16,14:15,Ring Road,Jaipur,Bus,Rain,High,Medium,0,1,28.3579,77.0945
+ACC0031,2025-02-26,18:58,Outer Ring Road,Noida,Truck,Cloudy,Low,Medium,0,2,28.3641,77.0227
+ACC0032,2025-03-22,20:28,NH-48,Faridabad,Car,Rain,Low,High,0,2,28.3351,77.0515
+ACC0033,2025-02-07,11:13,MG Road,Delhi,Truck,Rain,High,Medium,0,3,28.3276,77.0668
+ACC0034,2025-06-09,16:48,GT Road,Gurugram,Auto,Clear,High,High,0,0,28.3909,77.0885
+ACC0035,2025-01-11,20:01,GT Road,Gurugram,SUV,Cloudy,Medium,High,0,5,28.3118,77.0057
+ACC0036,2025-05-03,03:39,Ring Road,Faridabad,Bus,Cloudy,High,Medium,0,1,28.3987,77.0809
+ACC0037,2025-03-15,06:49,Outer Ring Road,Gurugram,Car,Clear,High,High,0,1,28.3324,77.0973
+ACC0038,2025-05-06,06:17,Ring Road,Gurugram,SUV,Cloudy,Low,High,0,1,28.3354,77.0586
+ACC0039,2025-04-30,21:15,NH-48,Delhi,SUV,Rain,Low,High,0,0,28.3829,77.0418
+ACC0040,2025-06-15,16:25,MG Road,Delhi,Bike,Rain,Medium,Medium,0,3,28.3827,77.0116
+ACC0041,2025-01-29,14:46,NH-48,Delhi,Auto,Clear,Low,Low,0,1,28.3065,77.025
+ACC0042,2025-01-31,12:51,Airport Road,Noida,Truck,Cloudy,Low,Medium,0,1,28.3645,77.0433
+ACC0043,2025-02-04,23:51,Outer Ring Road,Faridabad,Bus,Clear,High,High,0,5,28.3855,77.0611
+ACC0044,2025-03-22,14:23,MG Road,Gurugram,Auto,Clear,Low,Medium,0,2,28.313,77.048
+ACC0045,2025-03-19,11:24,NH-48,Jaipur,Truck,Cloudy,Fatal,Medium,1,4,28.3786,77.0407
+ACC0046,2025-04-21,06:51,MG Road,Gurugram,Car,Clear,Fatal,Low,1,5,28.3955,77.0348
+ACC0047,2025-01-31,18:19,GT Road,Faridabad,Truck,Cloudy,Fatal,Medium,1,5,28.3569,77.0846
+ACC0048,2025-05-11,13:53,NH-48,Gurugram,Truck,Rain,Medium,Medium,0,1,28.3367,77.0284
+ACC0049,2025-06-11,13:39,GT Road,Jaipur,Truck,Rain,High,Low,0,3,28.3079,77.0059
+ACC0050,2025-01-10,19:37,NH-48,Delhi,Car,Cloudy,Medium,Medium,0,5,28.3451,77.0935
+ACC0051,2025-04-03,00:49,GT Road,Noida,Bus,Cloudy,High,High,0,0,28.3674,77.0266
+ACC0052,2025-02-08,00:00,Outer Ring Road,Jaipur,Auto,Cloudy,High,Low,0,1,28.3729,77.0067
+ACC0053,2025-04-25,14:48,NH-48,Delhi,Auto,Clear,Medium,Low,0,3,28.3318,77.0705
+ACC0054,2025-01-19,16:34,Outer Ring Road,Noida,SUV,Rain,Fatal,Low,1,3,28.3933,77.0497
+ACC0055,2025-03-04,05:27,Ring Road,Delhi,Car,Rain,Medium,High,0,1,28.3255,77.0322
+ACC0056,2025-01-24,17:06,MG Road,Jaipur,Bike,Clear,High,Medium,0,2,28.3088,77.0033
+ACC0057,2025-05-28,13:19,NH-48,Noida,SUV,Cloudy,Medium,High,0,5,28.3903,77.0902
+ACC0058,2025-06-06,14:50,NH-48,Jaipur,Bus,Fog,Fatal,Low,1,5,28.3846,77.0935
+ACC0059,2025-01-19,19:51,NH-48,Jaipur,Truck,Fog,Medium,Low,0,0,28.3471,77.0439
+ACC0060,2025-04-03,10:18,Outer Ring Road,Faridabad,Car,Fog,Fatal,Low,1,0,28.3693,77.0373
+ACC0061,2025-04-30,09:06,NH-48,Gurugram,SUV,Fog,High,High,0,1,28.3883,77.0443
+ACC0062,2025-04-09,09:13,Ring Road,Noida,Bus,Cloudy,Low,High,0,2,28.3403,77.0854
+ACC0063,2025-01-14,15:34,Outer Ring Road,Delhi,Truck,Clear,Low,Medium,0,1,28.3036,77.1
+ACC0064,2025-03-16,17:23,NH-48,Delhi,Bus,Clear,High,High,0,2,28.3413,77.0492
+ACC0065,2025-04-06,19:28,MG Road,Faridabad,Truck,Cloudy,Low,Medium,0,1,28.3113,77.0785
+ACC0066,2025-03-29,23:06,Outer Ring Road,Delhi,Bike,Fog,Fatal,Low,1,5,28.3755,77.0356
+ACC0067,2025-03-17,09:03,GT Road,Jaipur,Truck,Cloudy,Low,High,0,1,28.344,77.0994
+ACC0068,2025-04-03,16:34,GT Road,Jaipur,Auto,Clear,High,High,0,2,28.3741,77.0837
+ACC0069,2025-03-19,23:41,Airport Road,Noida,Bus,Cloudy,High,Low,0,0,28.3472,77.0455
+ACC0070,2025-05-24,14:44,GT Road,Noida,Bike,Cloudy,Low,High,0,1,28.3652,77.057
+ACC0071,2025-06-23,15:52,GT Road,Jaipur,Bus,Rain,Fatal,Medium,1,5,28.3793,77.0517
+ACC0072,2025-06-10,06:35,GT Road,Delhi,Bike,Rain,Medium,High,0,2,28.3992,77.0924
+ACC0073,2025-06-14,12:38,MG Road,Jaipur,SUV,Clear,Fatal,Medium,1,2,28.3452,77.026
+ACC0074,2025-02-19,12:35,Ring Road,Delhi,Car,Fog,Medium,Medium,0,0,28.3928,77.0687
+ACC0075,2025-04-13,06:58,Ring Road,Delhi,Truck,Fog,Medium,High,0,2,28.3996,77.0357
+ACC0076,2025-06-09,03:51,GT Road,Jaipur,Truck,Clear,High,Low,0,3,28.3263,77.0955
+ACC0077,2025-01-28,21:52,Outer Ring Road,Gurugram,Car,Fog,Fatal,Low,1,2,28.3991,77.0115
+ACC0078,2025-02-13,20:36,Outer Ring Road,Noida,Auto,Rain,Medium,High,0,2,28.3077,77.0468
+ACC0079,2025-01-06,07:09,Outer Ring Road,Jaipur,Bus,Clear,Low,Low,0,0,28.343,77.0267
+ACC0080,2025-06-10,00:26,NH-48,Delhi,Auto,Cloudy,Fatal,Medium,1,4,28.3446,77.0478
+ACC0081,2025-03-15,04:55,Ring Road,Jaipur,Car,Fog,Low,High,0,2,28.3393,77.0364
+ACC0082,2025-02-14,12:35,GT Road,Jaipur,Bus,Fog,High,Medium,0,1,28.371,77.0953
+ACC0083,2025-05-17,17:12,Ring Road,Jaipur,Car,Clear,Low,Low,0,0,28.3927,77.0541
+ACC0084,2025-01-24,01:01,Airport Road,Faridabad,Bike,Fog,High,Medium,0,2,28.3043,77.0273
+ACC0085,2025-03-25,20:36,MG Road,Jaipur,Bike,Fog,Low,High,0,2,28.3203,77.0009
+ACC0086,2025-04-16,15:05,Airport Road,Noida,Bike,Clear,Fatal,Medium,1,1,28.3032,77.0278
+ACC0087,2025-05-21,13:23,MG Road,Noida,Bike,Fog,High,Medium,0,3,28.3911,77.0859
+ACC0088,2025-02-09,23:32,MG Road,Noida,Auto,Cloudy,Medium,High,0,0,28.3548,77.0769
+ACC0089,2025-05-04,06:48,Outer Ring Road,Jaipur,SUV,Cloudy,Fatal,Low,1,1,28.3172,77.0796
+ACC0090,2025-06-22,01:50,GT Road,Noida,Auto,Rain,High,High,0,0,28.3274,77.0024
+ACC0091,2025-04-22,20:26,Airport Road,Noida,SUV,Rain,Fatal,High,1,4,28.3094,77.0497
+ACC0092,2025-05-24,13:12,Ring Road,Noida,Auto,Fog,Low,High,0,2,28.3354,77.0333
+ACC0093,2025-02-07,08:28,NH-48,Jaipur,Truck,Clear,Medium,High,0,1,28.3156,77.0607
+ACC0094,2025-05-04,08:05,Airport Road,Faridabad,Auto,Cloudy,High,Low,0,1,28.3523,77.0094
+ACC0095,2025-01-31,05:35,Ring Road,Noida,SUV,Clear,Low,Medium,0,0,28.3181,77.0047
+ACC0096,2025-04-22,14:00,Ring Road,Delhi,Car,Cloudy,Low,High,0,2,28.3284,77.0914
+ACC0097,2025-06-20,18:06,Ring Road,Delhi,SUV,Fog,Fatal,High,1,5,28.3777,77.0431
+ACC0098,2025-04-29,06:05,Ring Road,Gurugram,Car,Rain,Low,Medium,0,2,28.3029,77.0524
+ACC0099,2025-06-13,20:29,NH-48,Noida,SUV,Rain,Medium,Medium,0,1,28.3777,77.087
+ACC0100,2025-02-25,05:58,Outer Ring Road,Faridabad,Bus,Clear,High,High,0,5,28.3939,77.039
+ACC0101,2025-02-19,23:30,MG Road,Faridabad,Auto,Fog,Fatal,Medium,1,5,28.3599,77.083
+ACC0102,2025-04-06,03:17,Outer Ring Road,Gurugram,Bus,Rain,High,Medium,0,4,28.3599,77.0356
+ACC0103,2025-02-04,22:27,Ring Road,Jaipur,Truck,Cloudy,Fatal,Low,1,2,28.3619,77.0092
+ACC0104,2025-04-09,02:46,Ring Road,Noida,Truck,Cloudy,Medium,High,0,1,28.3122,77.0354
+ACC0105,2025-05-14,01:38,MG Road,Delhi,Bus,Cloudy,High,Low,0,4,28.3578,77.0139
+ACC0106,2025-02-19,23:30,Ring Road,Noida,SUV,Clear,High,High,0,4,28.364,77.0925
+ACC0107,2025-02-20,11:52,Airport Road,Noida,Car,Cloudy,Fatal,Low,1,5,28.3312,77.002
+ACC0108,2025-06-09,10:20,Airport Road,Delhi,Bus,Fog,Fatal,High,1,3,28.3812,77.0484
+ACC0109,2025-05-19,15:04,NH-48,Faridabad,Car,Cloudy,High,Low,0,2,28.3169,77.0407
+ACC0110,2025-06-17,00:33,NH-48,Delhi,Bus,Fog,Fatal,Medium,1,0,28.3191,77.0467
+ACC0111,2025-05-10,21:44,NH-48,Faridabad,SUV,Rain,High,Medium,0,3,28.3123,77.0458
+ACC0112,2025-03-14,23:53,Outer Ring Road,Noida,Bike,Rain,Medium,Medium,0,4,28.3687,77.0574
+ACC0113,2025-04-24,07:40,Outer Ring Road,Faridabad,Bike,Fog,Low,Medium,0,0,28.3159,77.0997
+ACC0114,2025-04-26,12:04,GT Road,Jaipur,Bike,Clear,Fatal,Low,1,2,28.3799,77.0583
+ACC0115,2025-05-18,03:16,Outer Ring Road,Noida,Auto,Rain,Fatal,Medium,1,3,28.3964,77.0887
+ACC0116,2025-03-02,11:34,Ring Road,Gurugram,Car,Fog,Medium,High,0,2,28.3399,77.0968
+ACC0117,2025-04-16,05:22,GT Road,Gurugram,Truck,Clear,High,High,0,3,28.3052,77.0366
+ACC0118,2025-06-15,15:22,NH-48,Gurugram,Bike,Cloudy,Fatal,Medium,1,3,28.3186,77.0124
+ACC0119,2025-01-14,14:23,Ring Road,Delhi,Bus,Clear,Low,Medium,0,2,28.3724,77.0046
+ACC0120,2025-01-31,22:33,Airport Road,Gurugram,Car,Clear,Fatal,Low,1,4,28.3746,77.0404
+ACC0121,2025-06-15,18:19,GT Road,Faridabad,SUV,Fog,Fatal,High,1,0,28.3911,77.0474
+ACC0122,2025-06-15,04:29,GT Road,Jaipur,Auto,Fog,Fatal,High,1,2,28.3532,77.0193
+ACC0123,2025-02-22,05:14,NH-48,Faridabad,Truck,Rain,Medium,Low,0,2,28.3933,77.0058
+ACC0124,2025-04-30,12:09,MG Road,Faridabad,Truck,Clear,Medium,High,0,5,28.3627,77.0746
+ACC0125,2025-02-01,23:29,NH-48,Noida,SUV,Fog,Fatal,High,1,4,28.3197,77.054
+ACC0126,2025-05-01,01:07,Ring Road,Jaipur,Auto,Clear,Low,Medium,0,1,28.3377,77.0962
+ACC0127,2025-06-13,02:19,MG Road,Faridabad,SUV,Fog,Low,Medium,0,2,28.3422,77.0325
+ACC0128,2025-03-11,06:34,Airport Road,Delhi,Bus,Clear,Medium,Low,0,4,28.3595,77.0133
+ACC0129,2025-04-01,04:38,Outer Ring Road,Noida,Auto,Clear,High,High,0,0,28.3116,77.0764
+ACC0130,2025-06-15,16:00,NH-48,Faridabad,Bike,Clear,High,Medium,0,1,28.3515,77.069
+ACC0131,2025-03-25,11:16,NH-48,Gurugram,Truck,Fog,Low,High,0,1,28.374,77.028
+ACC0132,2025-05-02,15:25,Airport Road,Gurugram,Bus,Rain,Low,High,0,2,28.3969,77.0463
+ACC0133,2025-05-27,14:55,Outer Ring Road,Faridabad,Truck,Rain,Fatal,High,1,4,28.38,77.0558
+ACC0134,2025-06-26,15:09,Airport Road,Faridabad,Car,Fog,Fatal,Medium,1,1,28.3244,77.05
+ACC0135,2025-01-14,09:19,NH-48,Gurugram,Bike,Fog,High,Low,0,0,28.3549,77.0855
+ACC0136,2025-04-11,21:39,Ring Road,Noida,Car,Cloudy,Low,High,0,2,28.3236,77.0106
+ACC0137,2025-04-12,15:24,NH-48,Gurugram,Bus,Fog,Medium,High,0,2,28.3414,77.0615
+ACC0138,2025-05-11,17:01,Ring Road,Faridabad,Truck,Clear,Medium,Low,0,4,28.3952,77.0369
+ACC0139,2025-01-13,20:51,MG Road,Gurugram,Bike,Clear,High,Low,0,1,28.3968,77.0651
+ACC0140,2025-04-15,12:30,MG Road,Faridabad,Auto,Rain,Medium,High,0,5,28.3567,77.0386
+ACC0141,2025-06-02,22:16,NH-48,Faridabad,SUV,Cloudy,Medium,High,0,3,28.3717,77.0036
+ACC0142,2025-06-14,02:07,Outer Ring Road,Faridabad,Car,Fog,Medium,Low,0,1,28.3561,77.0132
+ACC0143,2025-02-01,12:06,Airport Road,Gurugram,SUV,Fog,Low,High,0,1,28.3074,77.0331
+ACC0144,2025-02-19,02:26,MG Road,Faridabad,Truck,Fog,Medium,High,0,5,28.352,77.0822
+ACC0145,2025-02-11,06:27,Ring Road,Jaipur,Bike,Cloudy,Fatal,Low,1,4,28.3645,77.0732
+ACC0146,2025-06-17,02:39,Outer Ring Road,Delhi,SUV,Cloudy,Low,Low,0,1,28.3446,77.0358
+ACC0147,2025-06-15,17:29,NH-48,Delhi,Auto,Fog,High,Medium,0,3,28.3226,77.0238
+ACC0148,2025-02-09,14:19,Outer Ring Road,Jaipur,Truck,Fog,Fatal,Low,1,5,28.3513,77.0235
+ACC0149,2025-03-12,18:05,GT Road,Noida,Car,Clear,Medium,Low,0,0,28.3767,77.05
+ACC0150,2025-02-28,00:18,Ring Road,Noida,Truck,Fog,Medium,High,0,2,28.3071,77.0886
+ACC0151,2025-01-04,03:42,GT Road,Gurugram,Truck,Clear,Medium,Medium,0,1,28.3589,77.0049
+ACC0152,2025-03-11,04:04,GT Road,Jaipur,Bike,Fog,Fatal,Medium,1,3,28.3502,77.0474
+ACC0153,2025-01-31,08:10,Outer Ring Road,Noida,Bus,Rain,High,High,0,2,28.368,77.0891
+ACC0154,2025-01-24,19:07,Ring Road,Noida,Auto,Fog,High,High,0,3,28.3865,77.0856
+ACC0155,2025-02-14,05:37,Airport Road,Faridabad,Bus,Cloudy,High,Low,0,1,28.3792,77.0549
+ACC0156,2025-06-16,19:47,Airport Road,Delhi,Car,Rain,Fatal,High,1,3,28.3482,77.0379
+ACC0157,2025-01-26,01:19,Airport Road,Faridabad,Bike,Fog,Fatal,High,1,5,28.3775,77.0668
+ACC0158,2025-01-07,03:08,Outer Ring Road,Jaipur,SUV,Fog,Low,High,0,1,28.3307,77.0958
+ACC0159,2025-01-29,15:52,Airport Road,Jaipur,Car,Cloudy,Low,Medium,0,2,28.3488,77.0802
+ACC0160,2025-06-20,20:31,GT Road,Delhi,SUV,Clear,Fatal,High,1,3,28.3308,77.0914
+ACC0161,2025-05-29,23:08,Ring Road,Gurugram,Bike,Clear,Low,Medium,0,0,28.3322,77.0304
+ACC0162,2025-06-14,19:52,Ring Road,Noida,SUV,Rain,Fatal,Medium,1,4,28.3559,77.0979
+ACC0163,2025-05-25,20:29,Airport Road,Noida,Auto,Cloudy,Fatal,Low,1,1,28.3852,77.0141
+ACC0164,2025-03-21,03:04,Airport Road,Gurugram,Car,Cloudy,Low,Low,0,0,28.3776,77.0005
+ACC0165,2025-05-11,18:59,GT Road,Faridabad,Auto,Rain,Fatal,High,1,1,28.3958,77.0978
+ACC0166,2025-06-30,19:15,Outer Ring Road,Delhi,Auto,Fog,Fatal,High,1,1,28.3659,77.0578
+ACC0167,2025-04-17,03:49,Ring Road,Jaipur,Bus,Cloudy,Medium,Low,0,5,28.3015,77.0804
+ACC0168,2025-03-29,11:55,Outer Ring Road,Delhi,Bike,Fog,High,High,0,1,28.3264,77.0731
+ACC0169,2025-03-29,05:58,Outer Ring Road,Jaipur,Car,Rain,Medium,Low,0,2,28.3585,77.0703
+ACC0170,2025-05-17,13:33,Ring Road,Jaipur,SUV,Fog,High,High,0,1,28.3088,77.0976
+ACC0171,2025-05-11,17:23,Airport Road,Delhi,Bus,Cloudy,Fatal,High,1,0,28.3853,77.0523
+ACC0172,2025-05-08,03:38,Outer Ring Road,Jaipur,Car,Rain,Medium,Medium,0,4,28.3641,77.0328
+ACC0173,2025-03-18,21:11,Outer Ring Road,Jaipur,Car,Cloudy,Low,Medium,0,2,28.3387,77.0232
+ACC0174,2025-04-18,14:06,NH-48,Delhi,Bus,Fog,Low,Low,0,1,28.3804,77.0686
+ACC0175,2025-02-07,22:41,Airport Road,Faridabad,Auto,Clear,Low,Low,0,2,28.3354,77.0722
+ACC0176,2025-03-07,07:53,NH-48,Jaipur,Car,Rain,Low,High,0,1,28.3331,77.0731
+ACC0177,2025-05-08,16:46,Outer Ring Road,Jaipur,Auto,Clear,Fatal,Low,1,2,28.3779,77.0014
+ACC0178,2025-03-11,09:12,NH-48,Faridabad,Auto,Clear,High,Medium,0,3,28.3868,77.0229
+ACC0179,2025-02-15,02:33,Outer Ring Road,Noida,Bike,Clear,Medium,Low,0,5,28.3342,77.0416
+ACC0180,2025-05-31,16:56,Airport Road,Gurugram,Bike,Clear,Fatal,Low,1,4,28.3897,77.0059
+ACC0181,2025-02-22,20:20,Airport Road,Faridabad,SUV,Cloudy,Medium,Medium,0,4,28.3861,77.0988
+ACC0182,2025-06-15,03:25,MG Road,Faridabad,Auto,Fog,High,High,0,2,28.3346,77.0209
+ACC0183,2025-05-28,02:59,Outer Ring Road,Gurugram,Auto,Clear,Low,High,0,2,28.3936,77.0611
+ACC0184,2025-02-14,17:56,Ring Road,Gurugram,Car,Fog,Low,Low,0,2,28.3505,77.0589
+ACC0185,2025-01-17,00:42,Airport Road,Delhi,Auto,Clear,High,Low,0,3,28.3619,77.092
+ACC0186,2025-02-26,12:09,Ring Road,Delhi,Truck,Fog,Low,High,0,2,28.3736,77.0624
+ACC0187,2025-06-01,23:54,Outer Ring Road,Jaipur,Car,Fog,Low,Low,0,2,28.3521,77.0068
+ACC0188,2025-05-20,10:37,Ring Road,Noida,Auto,Clear,High,High,0,0,28.3005,77.0596
+ACC0189,2025-04-09,02:13,MG Road,Gurugram,Bus,Fog,Fatal,High,1,2,28.31,77.0471
+ACC0190,2025-03-07,23:04,Ring Road,Faridabad,Car,Cloudy,Fatal,Low,1,3,28.3716,77.0534
+ACC0191,2025-04-16,11:17,NH-48,Gurugram,Car,Cloudy,Fatal,High,1,2,28.3673,77.0876
+ACC0192,2025-04-01,11:35,MG Road,Gurugram,Bus,Cloudy,Fatal,High,1,2,28.3203,77.0092
+ACC0193,2025-05-01,08:05,NH-48,Delhi,Truck,Clear,Low,Medium,0,1,28.3582,77.0277
+ACC0194,2025-04-14,06:08,NH-48,Noida,SUV,Cloudy,High,Low,0,4,28.3696,77.041
+ACC0195,2025-01-07,17:07,Ring Road,Faridabad,Bike,Fog,Low,Medium,0,1,28.3615,77.0909
+ACC0196,2025-03-30,01:14,GT Road,Gurugram,Car,Rain,Fatal,Medium,1,1,28.3655,77.0632
+ACC0197,2025-03-11,16:53,Outer Ring Road,Gurugram,Truck,Cloudy,Low,High,0,1,28.3143,77.0626
+ACC0198,2025-05-23,14:36,Airport Road,Delhi,Bus,Clear,Low,Low,0,2,28.3852,77.0386
+ACC0199,2025-03-16,16:07,Outer Ring Road,Jaipur,Bike,Cloudy,Fatal,High,1,4,28.3867,77.0319
+ACC0200,2025-05-07,23:52,Airport Road,Gurugram,Auto,Cloudy,High,Low,0,4,28.3831,77.0901

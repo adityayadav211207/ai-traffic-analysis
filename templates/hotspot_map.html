@@ -1,0 +1,374 @@
+{% extends "base.html" %}
+
+{% block title %}
+Live Hotspot GIS Map | TrafficVision AI
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css', v='2.5') }}">
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+<style>
+    #map {
+        width: 100%;
+        height: 540px;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        z-index: 1;
+    }
+    .hotspot-filter-bar {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    .filter-select {
+        background: #1E293B;
+        border: 1px solid #334155;
+        border-radius: var(--radius-md);
+        color: #F8FAFC;
+        padding: 8px 12px;
+        font-size: 0.88rem;
+        outline: none;
+    }
+    .toggle-map-btn {
+        background: #1E293B;
+        color: #94A3B8;
+        border: 1px solid #334155;
+        padding: 8px 16px;
+        border-radius: var(--radius-md);
+        font-size: 0.88rem;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .toggle-map-btn.active {
+        background: var(--primary);
+        color: #FFFFFF;
+        border-color: var(--primary);
+    }
+    .hotspot-list-item {
+        padding: 12px 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        cursor: pointer;
+        transition: background 0.2s ease;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #0F172A;
+    }
+    .hotspot-list-item:hover {
+        background: #1E293B;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar-container glass-card">
+        <div class="sidebar-brand">
+            <div class="brand-logo-icon">
+                <i class="fa-solid fa-traffic-light glow-icon"></i>
+            </div>
+            <div class="brand-text">
+                <h2>TrafficVision <span class="brand-accent">AI</span></h2>
+                <span class="brand-version">v2.5 Enterprise</span>
+            </div>
+        </div>
+
+        <div class="sidebar-status-pill">
+            <span class="status-pulse active"></span>
+            <span class="status-text">GIS TELEMETRY STREAM</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-category">MAIN OVERVIEW</div>
+            <ul class="nav-list">
+                <li>
+                    <a href="{{ url_for('home') }}" class="nav-item">
+                        <i class="fa-solid fa-house-laptop"></i>
+                        <span>Home Overview</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('dashboard.dashboard_page') }}" class="nav-item">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>Live Dashboard</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="nav-category">ANALYTICS & INTELLIGENCE</div>
+            <ul class="nav-list">
+                <li>
+                    <a href="{{ url_for('analytics.telemetry_page') }}" class="nav-item">
+                        <i class="fa-solid fa-car-burst"></i>
+                        <span>Traffic Telemetry</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="{{ url_for('analytics.map_page') }}" class="nav-item">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                        <span>Live Hotspot Map</span>
+                        <span class="nav-badge">LIVE</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('prediction.predictor_page') }}" class="nav-item">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>Risk Predictor</span>
+                        <span class="nav-badge" style="background:#8B5CF6;">AI ML</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('ai.assistant_page') }}" class="nav-item">
+                        <i class="fa-solid fa-brain"></i>
+                        <span>AI Assistant</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('report.reports_page') }}" class="nav-item">
+                        <i class="fa-solid fa-file-contract"></i>
+                        <span>Executive Reports</span>
+                    </a>
+                </li>
+            </ul>
+
+            {% if role == "admin" %}
+            <div class="nav-category">DATA & MANAGEMENT</div>
+            <ul class="nav-list">
+                <li>
+                    <a href="{{ url_for('upload.upload_dataset') }}" class="nav-item">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>Upload Dataset</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('dataset_management.datasets_page') }}" class="nav-item">
+                        <i class="fa-solid fa-database"></i>
+                        <span>Dataset Management</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('manage_users.manage_users_page') }}" class="nav-item">
+                        <i class="fa-solid fa-users-gear"></i>
+                        <span>Manage Users</span>
+                    </a>
+                </li>
+            </ul>
+            {% endif %}
+        </nav>
+
+        <div class="sidebar-user-footer">
+            <div class="user-avatar-badge">{{ username[0]|upper }}</div>
+            <div class="user-meta-info">
+                <span class="user-name-label">{{ username }}</span>
+                <span class="user-role-tag">{{ role|capitalize }}</span>
+            </div>
+            <a href="{{ url_for('auth.logout') }}" class="logout-btn" title="Logout">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-viewport">
+        <header class="viewport-header glass-card">
+            <div>
+                <h1 class="page-title"><i class="fa-solid fa-map-location-dot text-rose" style="margin-right:10px;"></i>GIS Collision Spatial Hotspots</h1>
+                <p class="page-subtitle">Real-time geospatial hotspot clustering and density heatmaps across traffic corridors</p>
+            </div>
+        </header>
+
+        <!-- MAP FILTER CONTROLS -->
+        <div class="hotspot-filter-bar">
+            <div>
+                <select id="severityFilter" class="filter-select">
+                    <option value="ALL">All Severities</option>
+                    <option value="Critical">Critical Only</option>
+                    <option value="High">High Risk Only</option>
+                    <option value="Warning">Warning / Moderate</option>
+                </select>
+            </div>
+            <div>
+                <select id="cityFilter" class="filter-select">
+                    <option value="ALL">All Cities</option>
+                    {% set unique_cities = [] %}
+                    {% for h in hotspots %}
+                        {% if h.city not in unique_cities %}
+                            {% set _ = unique_cities.append(h.city) %}
+                            <option value="{{ h.city }}">{{ h.city }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div style="margin-left:auto; display:flex; gap:8px;">
+                <button id="viewMarkersBtn" class="toggle-map-btn active"><i class="fa-solid fa-location-dot"></i> Markers</button>
+                <button id="viewHeatmapBtn" class="toggle-map-btn"><i class="fa-solid fa-fire"></i> Density Heatmap</button>
+            </div>
+        </div>
+
+        <!-- MAP & SIDEBAR GRID -->
+        <section style="display:grid; grid-template-columns: 1.6fr 1fr; gap:20px;">
+            <div class="param-card" style="padding:16px; background:#0F172A; border-radius:var(--radius-lg);">
+                <div id="map"></div>
+            </div>
+
+            <div class="param-card" style="padding:20px; background:#0F172A; border-radius:var(--radius-lg); display:flex; flex-direction:column;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                    <h3 style="font-size:1.05rem; font-weight:700; color:#F8FAFC;">
+                        <i class="fa-solid fa-triangle-exclamation text-rose"></i> Identified Blackspots
+                    </h3>
+                    <span id="hotspotCountBadge" class="slider-val-badge">{{ total_hotspots }} Corridors</span>
+                </div>
+
+                <div id="hotspotsListBox" style="max-height: 470px; overflow-y: auto; border-radius: var(--radius-md);">
+                    {% for h in hotspots %}
+                    <div class="hotspot-list-item hotspot-row" data-city="{{ h.city }}" data-severity="{{ h.severity }}" onclick="centerMapOn({{ h.lat }}, {{ h.lng }}, '{{ h.road }}')">
+                        <div>
+                            <h4 style="margin:0 0 4px 0; font-size:0.95rem; color:#F8FAFC;">{{ h.road }}</h4>
+                            <small style="color:#94A3B8;"><i class="fa-solid fa-location-dot"></i> {{ h.city }} | {{ h.count }} Incidents</small>
+                        </div>
+                        <span class="badge {% if h.severity == 'Critical' %}badge-danger{% else %}badge-warning{% endif %}">
+                            {{ h.risk_score }}% Risk
+                        </span>
+                    </div>
+                    {% endfor %}
+                    <div id="noHotspotsMessage" style="display:none; padding:24px 16px; color:#94A3B8; text-align:center;">
+                        No uploaded-dataset hotspots match the selected filters.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- Leaflet JS & Heatmap Plugin -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+<script>
+    var hotspotsData = {{ hotspots|tojson }};
+    var initialCenter = [28.6139, 77.2090];
+    if (hotspotsData.length > 0) {
+        initialCenter = [hotspotsData[0].lat, hotspotsData[0].lng];
+    }
+    
+    var map = L.map('map').setView(initialCenter, 8);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '© OpenStreetMap | TrafficVision AI'
+    }).addTo(map);
+
+    var markerGroup = L.layerGroup().addTo(map);
+    var heatLayer = null;
+    var markersMap = {};
+    var isHeatmapMode = false;
+
+    function renderLayers() {
+        markerGroup.clearLayers();
+        if (heatLayer) {
+            map.removeLayer(heatLayer);
+        }
+
+        var sevFilter = document.getElementById('severityFilter').value;
+        var cityFilter = document.getElementById('cityFilter').value;
+
+        var filtered = hotspotsData.filter(function(h) {
+            var matchSev = (sevFilter === 'ALL' || h.severity === sevFilter);
+            var matchCity = (cityFilter === 'ALL' || h.city === cityFilter);
+            return matchSev && matchCity;
+        });
+
+        // Update list visibility
+        var rows = document.querySelectorAll('.hotspot-row');
+        var visibleCount = 0;
+        rows.forEach(function(r) {
+            var rCity = r.getAttribute('data-city');
+            var rSev = r.getAttribute('data-severity');
+            var show = (sevFilter === 'ALL' || rSev === sevFilter) && (cityFilter === 'ALL' || rCity === cityFilter);
+            r.style.display = show ? 'flex' : 'none';
+            if (show) visibleCount++;
+        });
+        document.getElementById('hotspotCountBadge').textContent = visibleCount + ' Corridors';
+        document.getElementById('noHotspotsMessage').style.display = visibleCount === 0 ? 'block' : 'none';
+
+        // Prepare heatmap points
+        var heatPoints = [];
+        markersMap = {};
+
+        filtered.forEach(function(h) {
+            var markerColor = h.severity === 'Critical' ? '#EF4444' : (h.severity === 'High' ? '#F97316' : '#F59E0B');
+            
+            var circle = L.circleMarker([h.lat, h.lng], {
+                color: markerColor,
+                fillColor: markerColor,
+                fillOpacity: 0.8,
+                radius: Math.max(9, Math.min(22, h.count))
+            });
+
+            circle.bindPopup(
+                "<div style='font-family:Segoe UI, sans-serif; font-size:13px; color:#1E293B;'>" +
+                "<strong style='font-size:14px;'>" + h.road + "</strong><br>" +
+                "City: <strong>" + h.city + "</strong><br>" +
+                "Incidents: <strong>" + h.count + "</strong><br>" +
+                "Risk Score: <strong style='color:#EF4444;'>" + h.risk_score + "%</strong><br>" +
+                "Severity: <strong>" + h.severity + "</strong>" +
+                "</div>"
+            );
+
+            markerGroup.addLayer(circle);
+            markersMap[h.road] = circle;
+
+            heatPoints.push([h.lat, h.lng, h.risk_score / 100]);
+        });
+
+        if (isHeatmapMode) {
+            map.removeLayer(markerGroup);
+            heatLayer = L.heatLayer(heatPoints, { radius: 35, blur: 20, maxZoom: 14 }).addTo(map);
+        } else {
+            map.addLayer(markerGroup);
+        }
+
+        if (filtered.length > 0) {
+            var groupBounds = L.featureGroup(Object.values(markersMap)).getBounds();
+            if (groupBounds.isValid()) {
+                map.fitBounds(groupBounds, { padding: [40, 40] });
+            }
+        }
+    }
+
+    renderLayers();
+
+    document.getElementById('severityFilter').addEventListener('change', renderLayers);
+    document.getElementById('cityFilter').addEventListener('change', renderLayers);
+
+    document.getElementById('viewMarkersBtn').addEventListener('click', function() {
+        isHeatmapMode = false;
+        this.classList.add('active');
+        document.getElementById('viewHeatmapBtn').classList.remove('active');
+        renderLayers();
+    });
+
+    document.getElementById('viewHeatmapBtn').addEventListener('click', function() {
+        isHeatmapMode = true;
+        this.classList.add('active');
+        document.getElementById('viewMarkersBtn').classList.remove('active');
+        renderLayers();
+    });
+
+    function centerMapOn(lat, lng, road) {
+        if (isHeatmapMode) {
+            document.getElementById('viewMarkersBtn').click();
+        }
+        map.flyTo([lat, lng], 13, { duration: 1.2 });
+        setTimeout(function() {
+            if (markersMap[road]) {
+                markersMap[road].openPopup();
+            }
+        }, 1200);
+    }
+</script>
+{% endblock %}

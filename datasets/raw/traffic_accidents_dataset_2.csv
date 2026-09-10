@@ -1,0 +1,151 @@
+Accident_ID,Date,Road_Name,Vehicle_Type,Weather,Severity,City,Injuries
+1,2026-06-16,Ring Road,Bike,Cloudy,Major,Faridabad,8
+2,2026-05-25,GT Road,Bus,Cloudy,Fatal,Gurugram,6
+3,2026-01-28,MG Road,Car,Fog,Minor,Delhi,1
+4,2026-02-25,GT Road,Car,Clear,Fatal,Delhi,1
+5,2026-05-14,MG Road,Car,Clear,Major,Noida,8
+6,2026-01-23,MG Road,SUV,Cloudy,Major,Delhi,5
+7,2026-02-10,Ring Road,Truck,Rain,Minor,Faridabad,8
+8,2026-01-20,Airport Road,Bus,Rain,Fatal,Delhi,5
+9,2026-05-16,Ring Road,Bus,Clear,Minor,Noida,3
+10,2026-06-18,NH-48,SUV,Rain,Minor,Faridabad,6
+11,2026-06-02,NH-48,SUV,Rain,Major,Faridabad,6
+12,2026-06-15,GT Road,Truck,Rain,Major,Noida,2
+13,2026-02-11,NH-48,Car,Clear,Minor,Faridabad,3
+14,2026-06-14,NH-48,SUV,Rain,Minor,Noida,3
+15,2026-02-12,MG Road,Car,Cloudy,Fatal,Delhi,4
+16,2026-01-05,Ring Road,Car,Clear,Major,Faridabad,3
+17,2026-03-28,MG Road,Bus,Clear,Major,Noida,4
+18,2026-02-13,Ring Road,Car,Cloudy,Major,Delhi,4
+19,2026-05-12,GT Road,SUV,Clear,Minor,Gurugram,1
+20,2026-01-02,MG Road,Car,Clear,Major,Noida,3
+21,2026-04-27,Sohna Road,Truck,Clear,Minor,Gurugram,2
+22,2026-04-01,Airport Road,Truck,Cloudy,Major,Faridabad,1
+23,2026-01-15,MG Road,Truck,Cloudy,Minor,Faridabad,0
+24,2026-02-26,MG Road,Bike,Clear,Minor,Faridabad,0
+25,2026-04-19,MG Road,Car,Cloudy,Fatal,Noida,2
+26,2026-03-08,Sohna Road,Car,Fog,Major,Gurugram,6
+27,2026-02-06,Sohna Road,SUV,Fog,Minor,Faridabad,3
+28,2026-05-30,Sohna Road,Bus,Clear,Fatal,Gurugram,0
+29,2026-05-27,Airport Road,Bike,Fog,Minor,Faridabad,6
+30,2026-06-16,Ring Road,Bus,Rain,Fatal,Gurugram,0
+31,2026-02-01,Airport Road,SUV,Cloudy,Minor,Gurugram,2
+32,2026-01-25,Sohna Road,SUV,Clear,Fatal,Noida,3
+33,2026-04-15,MG Road,Bus,Clear,Major,Noida,4
+34,2026-05-03,Sohna Road,Bus,Fog,Fatal,Delhi,8
+35,2026-01-05,MG Road,Bike,Rain,Fatal,Noida,3
+36,2026-03-25,Airport Road,Car,Clear,Major,Faridabad,4
+37,2026-04-30,NH-48,Car,Rain,Minor,Faridabad,5
+38,2026-04-16,NH-48,SUV,Fog,Major,Delhi,4
+39,2026-01-20,Sohna Road,SUV,Clear,Fatal,Gurugram,4
+40,2026-06-21,Airport Road,Bike,Clear,Fatal,Noida,8
+41,2026-06-18,Ring Road,Car,Clear,Major,Delhi,3
+42,2026-04-13,MG Road,Bike,Rain,Minor,Gurugram,1
+43,2026-03-14,MG Road,Car,Fog,Minor,Faridabad,0
+44,2026-05-16,Sohna Road,Truck,Clear,Major,Gurugram,0
+45,2026-05-16,Ring Road,Bus,Fog,Fatal,Faridabad,0
+46,2026-02-08,Sohna Road,Truck,Cloudy,Minor,Gurugram,2
+47,2026-03-16,MG Road,Truck,Rain,Fatal,Gurugram,5
+48,2026-06-18,GT Road,SUV,Clear,Fatal,Faridabad,6
+49,2026-01-03,Airport Road,Bike,Clear,Major,Gurugram,2
+50,2026-05-16,Sohna Road,Bike,Fog,Fatal,Gurugram,8
+51,2026-06-02,Ring Road,SUV,Fog,Minor,Faridabad,3
+52,2026-02-26,Airport Road,Car,Cloudy,Fatal,Noida,6
+53,2026-04-10,MG Road,Car,Cloudy,Fatal,Gurugram,3
+54,2026-04-18,Ring Road,Truck,Fog,Major,Delhi,8
+55,2026-03-13,NH-48,Bus,Clear,Fatal,Faridabad,5
+56,2026-03-07,NH-48,Car,Rain,Major,Faridabad,0
+57,2026-01-19,NH-48,Bike,Rain,Minor,Noida,6
+58,2026-05-29,GT Road,Truck,Cloudy,Fatal,Faridabad,1
+59,2026-02-16,Sohna Road,SUV,Rain,Fatal,Noida,5
+60,2026-05-18,MG Road,Bus,Fog,Minor,Delhi,8
+61,2026-05-26,Ring Road,Bus,Fog,Fatal,Faridabad,4
+62,2026-03-15,Sohna Road,Bike,Clear,Minor,Faridabad,6
+63,2026-03-24,NH-48,Bus,Clear,Fatal,Gurugram,2
+64,2026-05-14,GT Road,SUV,Fog,Fatal,Gurugram,0
+65,2026-06-20,Ring Road,Car,Fog,Minor,Gurugram,5
+66,2026-04-23,MG Road,Car,Fog,Fatal,Faridabad,5
+67,2026-02-13,MG Road,Bike,Cloudy,Major,Gurugram,6
+68,2026-05-02,MG Road,SUV,Clear,Fatal,Gurugram,4
+69,2026-01-08,Sohna Road,SUV,Clear,Fatal,Noida,1
+70,2026-03-28,Airport Road,Bike,Clear,Major,Noida,8
+71,2026-04-04,MG Road,Bus,Fog,Minor,Noida,8
+72,2026-05-30,NH-48,Truck,Rain,Fatal,Delhi,4
+73,2026-03-27,Sohna Road,Truck,Rain,Fatal,Noida,6
+74,2026-06-10,MG Road,Truck,Cloudy,Fatal,Gurugram,1
+75,2026-02-02,NH-48,Bus,Cloudy,Fatal,Faridabad,2
+76,2026-05-31,Sohna Road,Car,Cloudy,Major,Noida,6
+77,2026-05-26,Airport Road,Bike,Rain,Major,Noida,8
+78,2026-04-07,MG Road,Truck,Clear,Minor,Faridabad,6
+79,2026-01-28,Airport Road,SUV,Rain,Major,Delhi,4
+80,2026-06-27,MG Road,Truck,Rain,Major,Delhi,0
+81,2026-04-18,Sohna Road,Bus,Fog,Major,Gurugram,8
+82,2026-03-13,Airport Road,Car,Fog,Fatal,Delhi,6
+83,2026-04-03,Sohna Road,Bike,Rain,Fatal,Faridabad,5
+84,2026-05-06,Ring Road,SUV,Fog,Minor,Noida,7
+85,2026-04-14,Ring Road,Truck,Rain,Major,Faridabad,8
+86,2026-01-10,Ring Road,Truck,Cloudy,Minor,Faridabad,6
+87,2026-06-02,Airport Road,Bike,Rain,Major,Delhi,1
+88,2026-05-17,Airport Road,SUV,Cloudy,Minor,Gurugram,0
+89,2026-03-27,Sohna Road,Bike,Clear,Minor,Gurugram,4
+90,2026-04-28,Ring Road,Bike,Fog,Minor,Noida,0
+91,2026-01-11,GT Road,Bus,Rain,Fatal,Delhi,3
+92,2026-04-20,Ring Road,Truck,Rain,Fatal,Delhi,7
+93,2026-02-25,MG Road,Car,Fog,Major,Gurugram,5
+94,2026-05-23,Airport Road,Bike,Rain,Fatal,Noida,3
+95,2026-06-03,GT Road,Car,Rain,Major,Noida,7
+96,2026-02-13,GT Road,Bus,Fog,Major,Delhi,6
+97,2026-01-08,GT Road,Car,Fog,Fatal,Gurugram,2
+98,2026-05-13,Sohna Road,Truck,Cloudy,Minor,Noida,6
+99,2026-06-01,NH-48,Truck,Rain,Minor,Noida,6
+100,2026-02-02,Airport Road,Bus,Cloudy,Major,Faridabad,2
+101,2026-04-22,Ring Road,Car,Clear,Major,Noida,4
+102,2026-03-21,NH-48,SUV,Clear,Fatal,Delhi,3
+103,2026-01-17,Ring Road,SUV,Cloudy,Minor,Gurugram,5
+104,2026-04-08,GT Road,Bike,Fog,Minor,Delhi,8
+105,2026-02-13,NH-48,Bus,Fog,Fatal,Delhi,8
+106,2026-05-15,Ring Road,SUV,Cloudy,Minor,Noida,0
+107,2026-02-23,Airport Road,Car,Clear,Major,Delhi,1
+108,2026-01-27,Sohna Road,Bus,Clear,Major,Faridabad,6
+109,2026-01-06,Sohna Road,Car,Rain,Major,Gurugram,8
+110,2026-06-07,NH-48,Truck,Fog,Major,Gurugram,7
+111,2026-01-28,Ring Road,Bus,Cloudy,Major,Delhi,0
+112,2026-06-25,GT Road,SUV,Clear,Fatal,Gurugram,0
+113,2026-01-14,Ring Road,Bus,Fog,Fatal,Faridabad,1
+114,2026-01-24,GT Road,Car,Fog,Minor,Faridabad,7
+115,2026-01-17,NH-48,SUV,Clear,Fatal,Faridabad,4
+116,2026-01-09,Ring Road,Car,Cloudy,Major,Delhi,1
+117,2026-03-20,Sohna Road,Car,Fog,Fatal,Gurugram,1
+118,2026-02-03,Ring Road,SUV,Cloudy,Major,Gurugram,2
+119,2026-02-22,MG Road,SUV,Clear,Fatal,Delhi,0
+120,2026-06-01,Ring Road,Bus,Fog,Minor,Faridabad,3
+121,2026-06-19,Ring Road,Truck,Rain,Major,Gurugram,7
+122,2026-01-30,GT Road,Bus,Rain,Major,Gurugram,4
+123,2026-04-22,NH-48,Bus,Rain,Major,Noida,8
+124,2026-01-21,NH-48,Truck,Rain,Major,Faridabad,7
+125,2026-05-12,NH-48,SUV,Fog,Major,Gurugram,4
+126,2026-05-13,GT Road,Car,Fog,Minor,Gurugram,3
+127,2026-01-01,Ring Road,Car,Clear,Minor,Noida,3
+128,2026-02-06,Sohna Road,Car,Rain,Fatal,Gurugram,7
+129,2026-04-03,GT Road,Bike,Rain,Fatal,Faridabad,7
+130,2026-01-14,Ring Road,Car,Rain,Major,Faridabad,5
+131,2026-03-30,Airport Road,Truck,Cloudy,Major,Noida,6
+132,2026-02-16,Sohna Road,Bike,Clear,Major,Faridabad,6
+133,2026-02-22,NH-48,Bike,Clear,Minor,Gurugram,1
+134,2026-06-22,NH-48,Car,Fog,Fatal,Noida,1
+135,2026-02-21,GT Road,Bike,Cloudy,Fatal,Faridabad,4
+136,2026-02-08,MG Road,Bike,Clear,Major,Faridabad,4
+137,2026-04-04,Sohna Road,Truck,Rain,Minor,Gurugram,4
+138,2026-04-19,MG Road,Truck,Cloudy,Minor,Noida,4
+139,2026-06-14,NH-48,Bike,Fog,Minor,Delhi,1
+140,2026-02-26,Airport Road,Car,Clear,Major,Gurugram,7
+141,2026-01-03,Airport Road,Truck,Fog,Major,Noida,5
+142,2026-03-13,Ring Road,SUV,Rain,Fatal,Delhi,8
+143,2026-04-22,Sohna Road,SUV,Clear,Major,Delhi,0
+144,2026-02-26,NH-48,SUV,Clear,Fatal,Noida,7
+145,2026-01-26,GT Road,Bike,Rain,Fatal,Delhi,8
+146,2026-05-03,Airport Road,Bus,Cloudy,Major,Noida,2
+147,2026-06-25,Ring Road,SUV,Rain,Major,Noida,2
+148,2026-03-08,NH-48,Bike,Rain,Major,Faridabad,2
+149,2026-05-19,NH-48,Bike,Cloudy,Minor,Faridabad,3
+150,2026-03-22,MG Road,Car,Clear,Fatal,Noida,1

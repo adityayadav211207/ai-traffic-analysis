@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Profile | TrafficVision AI
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css', v='2.5') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-layout">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar-container glass-card">
+        <div class="sidebar-brand">
+            <div class="brand-logo-icon">
+                <i class="fa-solid fa-traffic-light glow-icon"></i>
+            </div>
+            <div class="brand-text">
+                <h2>TrafficVision <span class="brand-accent">AI</span></h2>
+                <span class="brand-version">v2.5 Enterprise</span>
+            </div>
+        </div>
+
+        <div class="sidebar-status-pill">
+            <span class="status-pulse active"></span>
+            <span class="status-text">NEURAL ENGINE ACTIVE</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-category">MAIN OVERVIEW</div>
+            <ul class="nav-list">
+                <li>
+                    <a href="{{ url_for('home') }}" class="nav-item">
+                        <i class="fa-solid fa-house-laptop"></i>
+                        <span>Home Overview</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('dashboard.dashboard_page') }}" class="nav-item">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>Live Dashboard</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="nav-category">ANALYTICS & INTELLIGENCE</div>
+            <ul class="nav-list">
+                <li>
+                    <a href="{{ url_for('analytics.telemetry_page') }}" class="nav-item">
+                        <i class="fa-solid fa-car-burst"></i>
+                        <span>Traffic Telemetry</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('analytics.map_page') }}" class="nav-item">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                        <span>Live Hotspot Map</span>
+                        <span class="nav-badge">LIVE</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('ai.assistant_page') }}" class="nav-item">
+                        <i class="fa-solid fa-brain"></i>
+                        <span>AI Assistant</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('report.reports_page') }}" class="nav-item">
+                        <i class="fa-solid fa-file-contract"></i>
+                        <span>Executive Reports</span>
+                    </a>
+                </li>
+            </ul>
+
+            {% if role == "admin" %}
+            <div class="nav-category">DATA & MANAGEMENT</div>
+            <ul class="nav-list">
+                <li>
+                    <a href="{{ url_for('upload.upload_dataset') }}" class="nav-item">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>Upload Dataset</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('dataset_management.datasets_page') }}" class="nav-item">
+                        <i class="fa-solid fa-database"></i>
+                        <span>Dataset Management</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('manage_users.manage_users_page') }}" class="nav-item">
+                        <i class="fa-solid fa-users-gear"></i>
+                        <span>Manage Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('settings.settings_page') }}" class="nav-item">
+                        <i class="fa-solid fa-sliders"></i>
+                        <span>System Settings</span>
+                    </a>
+                </li>
+            </ul>
+            {% endif %}
+
+            <div class="nav-category">ACCOUNT</div>
+            <ul class="nav-list">
+                <li class="active">
+                    <a href="{{ url_for('auth.profile_page') }}" class="nav-item">
+                        <i class="fa-solid fa-user-gear"></i>
+                        <span>My Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('auth.logout') }}" class="nav-item nav-logout">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Logout Session</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <main class="main-wrapper">
+        <header class="topbar-container glass-card">
+            <div class="topbar-search">
+                <i class="fa-solid fa-user search-icon"></i>
+                <input type="text" placeholder="User Profile & Security Hub..." disabled style="background:transparent;">
+            </div>
+
+            <div class="topbar-actions">
+                <div class="user-profile-chip">
+                    <div class="avatar-box">
+                        <i class="fa-solid fa-user-astronaut"></i>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name">{{ username|capitalize }}</span>
+                        <span class="badge badge-primary">{{ role|upper }}</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages-wrapper" style="margin-top:20px;">
+            {% for category, message in messages %}
+            <div class="flash-banner {% if category == 'success' %}flash-success{% else %}flash-danger{% endif %}">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>{{ message }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <section class="dashboard-hero">
+            <div class="hero-text-content">
+                <div class="hero-badge">
+                    <i class="fa-solid fa-shield-halved text-cyan"></i>
+                    <span>Analyst Account Settings</span>
+                </div>
+                <h1>User Profile <span class="gradient-text">& Credentials</span></h1>
+                <p>Manage your account credentials, security preferences, and privilege tokens.</p>
+            </div>
+        </section>
+
+        <!-- PROFILE & CHANGE PASSWORD GRID -->
+        <section class="intelligence-grid" style="margin-top: 24px;">
+            <div class="ai-intelligence-panel glass-card" style="padding: 30px;">
+                <div class="panel-header" style="margin-bottom:20px;">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-id-card text-primary"></i>
+                        <div>
+                            <h2>Account Details</h2>
+                            <p class="text-muted">Authenticated user metadata</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:16px;">
+                    <div style="display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #E2E8F0;">
+                        <span class="text-muted">Username</span>
+                        <strong>{{ username|capitalize }}</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #E2E8F0;">
+                        <span class="text-muted">Assigned Access Role</span>
+                        <span class="badge badge-primary">{{ role|upper }}</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #E2E8F0;">
+                        <span class="text-muted">Session Security</span>
+                        <span class="badge badge-success">ACTIVE & SECURE</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="live-alerts-panel glass-card" style="padding: 30px;">
+                <div class="panel-header" style="margin-bottom:20px;">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-key text-amber"></i>
+                        <div>
+                            <h2>Update Password</h2>
+                            <p class="text-muted">Change your account password</p>
+                        </div>
+                    </div>
+                </div>
+
+                <form method="POST" action="{{ url_for('auth.profile_page') }}">
+                    <div style="margin-bottom:16px;">
+                        <label style="font-weight:600; display:block; margin-bottom:6px;">New Password</label>
+                        <input type="password" name="new_password" required placeholder="Enter new password"
+                               style="width:100%; padding:12px; border-radius:8px; border:1px solid #CBD5E1;">
+                    </div>
+
+                    <div style="margin-bottom:24px;">
+                        <label style="font-weight:600; display:block; margin-bottom:6px;">Confirm New Password</label>
+                        <input type="password" name="confirm_password" required placeholder="Confirm new password"
+                               style="width:100%; padding:12px; border-radius:8px; border:1px solid #CBD5E1;">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width:100%;">
+                        <i class="fa-solid fa-lock"></i> Update Password
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <footer class="dashboard-footer" style="margin-top:40px;">
+            <p>© 2026 TrafficVision AI Platform | Account Services</p>
+        </footer>
+    </main>
+</div>
+
+{% endblock %}

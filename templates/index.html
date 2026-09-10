@@ -1,0 +1,593 @@
+{% extends "base.html" %}
+
+{% block title %}
+TrafficVision AI
+{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css', v='2.5') }}">
+
+{% endblock %}
+
+{% block content %}
+<!-- ================= NAVBAR ================= -->
+
+<header>
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-road"></i>
+
+            <span>TrafficVision AI</span>
+
+        </div>
+
+        <ul class="nav-menu">
+
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+
+            <li><a href="#features">Features</a></li>
+
+            <li><a href="#dashboard-preview">Dashboard</a></li>
+
+            <li><a href="#about">About</a></li>
+
+            <li>
+
+                <a href="{{ url_for('auth.login', next=url_for('dashboard.dashboard_page')) }}" class="login-btn">
+
+                    Login
+
+                </a>
+
+            </li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-left">
+
+        <span class="badge">
+
+            <i class="fa-solid fa-chart-line"></i>
+            AI-POWERED TRAFFIC ANALYTICS
+
+        </span>
+
+        <h1>
+
+            Make every road
+            <br>
+
+            <span>a safer decision</span>
+
+        </h1>
+
+        <p>
+
+            Turn accident records into clear priorities for
+            transport teams. Track incidents, find dangerous
+            corridors, test risk scenarios, and give leadership
+            an evidence-based view of what needs attention next.
+
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="{{ url_for('auth.login', next=url_for('dashboard.dashboard_page')) }}" class="btn btn-primary">
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+                Get Started
+
+            </a>
+
+            <a href="#features" class="btn btn-outline">
+
+                <i class="fa-solid fa-play"></i>
+
+                Live Demo
+
+            </a>
+
+        </div>
+
+        <div class="hero-stats">
+
+            <div class="stat">
+
+                <h2>
+
+                    6
+
+                </h2>
+
+                <p>
+
+                    Working views
+
+                </p>
+
+            </div>
+
+            <div class="stat">
+
+                <h2>
+
+                    Live
+
+                </h2>
+
+                <p>
+
+                    Risk signals
+
+                </p>
+
+            </div>
+
+            <div class="stat">
+
+                <h2>
+
+                    1-click
+
+                </h2>
+
+                <p>
+
+                    Executive reports
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="hero-right">
+
+        <img src="{{ url_for('static', filename='images/hero.png') }}" class="hero-image" alt="TrafficVision">
+
+    </div>
+
+</section>
+
+<!-- ================= FEATURES ================= -->
+
+<section id="features" class="features">
+
+    <div class="section-title">
+
+        <span>
+
+            FEATURES
+
+        </span>
+
+        <h2>
+
+            Powerful Analytics Platform
+
+        </h2>
+
+        <p>
+
+            Everything required to analyze road accidents,
+            identify dangerous roads and improve public safety.
+
+        </p>
+
+    </div>
+
+    <div class="feature-grid">
+
+        <a href="{{ url_for('auth.login', next=url_for('dashboard.dashboard_page')) }}" class="feature-card">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <h3>
+
+                Traffic Analytics
+
+            </h3>
+
+            <p>
+
+                Analyze accident trends, traffic density
+                and road performance.
+
+            </p>
+
+        </a>
+
+        <a href="{{ url_for('auth.login', next=url_for('dashboard.dashboard_page')) }}" class="feature-card">
+
+            <i class="fa-solid fa-map-location-dot"></i>
+
+            <h3>
+
+                Interactive Maps
+
+            </h3>
+
+            <p>
+
+                Visualize accident hotspots
+                using interactive GIS maps.
+
+            </p>
+
+        </a>
+
+        <a href="{{ url_for('auth.login', next=url_for('dashboard.dashboard_page')) }}" class="feature-card">
+
+            <i class="fa-solid fa-robot"></i>
+
+            <h3>
+
+                AI Assistant
+
+            </h3>
+
+            <p>
+
+                Ask natural language questions
+                and receive AI insights.
+
+            </p>
+
+        </a>
+
+        <a href="{{ url_for('auth.login', next=url_for('dashboard.dashboard_page')) }}" class="feature-card">
+
+            <i class="fa-solid fa-file-export"></i>
+
+            <h3>
+
+                Smart Reports
+
+            </h3>
+
+            <p>
+
+                Export professional PDF,
+                Excel and CSV reports.
+
+            </p>
+
+        </a>
+
+        <a href="{{ url_for('auth.login', next=url_for('dashboard.dashboard_page')) }}" class="feature-card">
+
+            <i class="fa-solid fa-cloud"></i>
+
+            <h3>
+
+                Weather Analysis
+
+            </h3>
+
+            <p>
+
+                Study weather impact
+                on road accidents.
+
+            </p>
+
+        </a>
+
+        <a href="{{ url_for('auth.login', next=url_for('dashboard.dashboard_page')) }}" class="feature-card">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            <h3>
+
+                Risk Prediction
+
+            </h3>
+
+            <p>
+
+                Predict accident-prone
+                roads using Machine Learning.
+
+            </p>
+
+        </a>
+
+    </div>
+
+</section>
+<!-- ================= DASHBOARD PREVIEW ================= -->
+
+<section class="dashboard-preview" id="dashboard-preview">
+
+    <div class="section-title">
+
+        <span>DASHBOARD</span>
+
+        <h2>Enterprise Analytics Dashboard</h2>
+
+        <p>
+            A professional dashboard with KPIs, charts,
+            AI insights and traffic monitoring.
+        </p>
+
+    </div>
+
+    <div class="dashboard-card">
+
+        <div class="dashboard-top">
+
+            <div class="dashboard-logo">
+
+                🚦 TrafficVision AI
+
+            </div>
+
+            <div class="dashboard-status">
+
+                ● Live Monitoring
+
+            </div>
+
+        </div>
+
+        <div class="dashboard-grid">
+
+            <div class="mini-card">
+
+                <h3>1450</h3>
+
+                <p>Total Accidents</p>
+
+            </div>
+
+            <div class="mini-card">
+
+                <h3>230</h3>
+
+                <p>Fatal Cases</p>
+
+            </div>
+
+            <div class="mini-card">
+
+                <h3>92%</h3>
+
+                <p>Traffic Score</p>
+
+            </div>
+
+            <div class="mini-card">
+
+                <h3>5200</h3>
+
+                <p>Vehicles</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= AI SECTION ================= -->
+
+<section class="ai-section">
+
+    <div class="ai-left">
+
+        <span>AI ASSISTANT</span>
+
+        <h2>
+
+            Ask Questions in
+            Natural Language
+
+        </h2>
+
+        <p>
+
+            Use Gemini AI to ask questions like:
+
+        </p>
+
+        <ul>
+
+            <li>Which road has the highest accident rate?</li>
+
+            <li>Why did accidents increase this month?</li>
+
+            <li>Suggest traffic improvements.</li>
+
+            <li>Generate executive report.</li>
+
+        </ul>
+
+        <a href="{{ url_for('auth.login', next=url_for('dashboard.dashboard_page')) }}" class="btn btn-primary">
+
+            Try AI Assistant
+
+        </a>
+
+    </div>
+
+    <div class="ai-right">
+
+        <div class="chat-box">
+
+            <div class="question">
+
+                Which road is most dangerous?
+
+            </div>
+
+            <div class="answer">
+
+                NH-48 recorded the highest number
+                of severe accidents in the last
+                three months due to heavy traffic
+                congestion and overspeeding.
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= ABOUT ================= -->
+
+<section class="about" id="about">
+
+    <div class="section-title">
+
+        <span>ABOUT</span>
+
+        <h2>
+
+            Why TrafficVision AI?
+
+        </h2>
+
+    </div>
+
+    <div class="about-content">
+
+        <p>
+
+            TrafficVision AI is an enterprise-level
+            traffic analytics platform developed to
+            monitor road accidents, visualize traffic
+            patterns, identify black spots, generate
+            AI-powered recommendations and help
+            authorities improve road safety using
+            Data Analytics, Artificial Intelligence,
+            Machine Learning and Interactive Dashboards.
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ================= CALL TO ACTION ================= -->
+
+<section class="cta">
+
+    <h2>
+
+        Ready to Build Safer Roads?
+
+    </h2>
+
+    <p>
+
+        Start using TrafficVision AI today.
+
+    </p>
+
+    <a href="{{ url_for('auth.login', next=url_for('dashboard.dashboard_page')) }}" class="btn btn-primary">
+
+        Launch Dashboard
+
+    </a>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-container">
+
+        <div>
+
+            <h3>
+
+                🚦 TrafficVision AI
+
+            </h3>
+
+            <p>
+
+                Smart Traffic Analytics &
+                Accident Intelligence Platform
+
+            </p>
+
+        </div>
+
+        <div>
+
+            <h4>
+
+                Quick Links
+
+            </h4>
+
+            <ul>
+
+                <li>Home</li>
+
+                <li>Features</li>
+
+                <li>Dashboard</li>
+
+                <li>About</li>
+
+            </ul>
+
+        </div>
+
+        <div>
+
+            <h4>
+
+                Technologies
+
+            </h4>
+
+            <ul>
+
+                <li>Python</li>
+
+                <li>Flask</li>
+
+                <li>PostgreSQL</li>
+
+                <li>Gemini AI</li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <p class="copyright">
+
+        © 2026 TrafficVision AI.
+        Developed by Aditya Yadav.
+
+    </p>
+
+</footer>
+
+{% endblock %}

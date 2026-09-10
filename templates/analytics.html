@@ -1,0 +1,277 @@
+{% extends "base.html" %}
+
+{% block title %}
+Traffic Telemetry Analytics | TrafficVision AI
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css', v='2.5') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/analytics.css', v='2.5') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-layout">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar-container glass-card">
+        <div class="sidebar-brand">
+            <div class="brand-logo-icon">
+                <i class="fa-solid fa-traffic-light glow-icon"></i>
+            </div>
+            <div class="brand-text">
+                <h2>TrafficVision <span class="brand-accent">AI</span></h2>
+                <span class="brand-version">v2.5 Enterprise</span>
+            </div>
+        </div>
+
+        <div class="sidebar-status-pill">
+            <span class="status-pulse active"></span>
+            <span class="status-text">NEURAL ENGINE ACTIVE</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-category">MAIN OVERVIEW</div>
+            <ul class="nav-list">
+                <li>
+                    <a href="{{ url_for('home') }}" class="nav-item">
+                        <i class="fa-solid fa-house-laptop"></i>
+                        <span>Home Overview</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('dashboard.dashboard_page') }}" class="nav-item">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>Live Dashboard</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="nav-category">ANALYTICS & INTELLIGENCE</div>
+            <ul class="nav-list">
+                <li class="active">
+                    <a href="{{ url_for('analytics.telemetry_page') }}" class="nav-item">
+                        <i class="fa-solid fa-car-burst"></i>
+                        <span>Traffic Telemetry</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('analytics.map_page') }}" class="nav-item">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                        <span>Live Hotspot Map</span>
+                        <span class="nav-badge">LIVE</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('prediction.predictor_page') }}" class="nav-item">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>Risk Predictor</span>
+                        <span class="nav-badge" style="background:#8B5CF6;">AI ML</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('ai.assistant_page') }}" class="nav-item">
+                        <i class="fa-solid fa-brain"></i>
+                        <span>AI Assistant</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('report.reports_page') }}" class="nav-item">
+                        <i class="fa-solid fa-file-contract"></i>
+                        <span>Executive Reports</span>
+                    </a>
+                </li>
+            </ul>
+
+            {% if role == "admin" %}
+            <div class="nav-category">DATA & MANAGEMENT</div>
+            <ul class="nav-list">
+                <li>
+                    <a href="{{ url_for('upload.upload_dataset') }}" class="nav-item">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>Upload Dataset</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('dataset_management.datasets_page') }}" class="nav-item">
+                        <i class="fa-solid fa-database"></i>
+                        <span>Dataset Management</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('manage_users.manage_users_page') }}" class="nav-item">
+                        <i class="fa-solid fa-users-gear"></i>
+                        <span>Manage Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('settings.settings_page') }}" class="nav-item">
+                        <i class="fa-solid fa-sliders"></i>
+                        <span>System Settings</span>
+                    </a>
+                </li>
+            </ul>
+            {% endif %}
+
+            <div class="nav-category">ACCOUNT</div>
+            <ul class="nav-list">
+                <li>
+                    <a href="{{ url_for('auth.profile_page') }}" class="nav-item">
+                        <i class="fa-solid fa-user-gear"></i>
+                        <span>My Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('auth.logout') }}" class="nav-item nav-logout">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Logout Session</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <main class="main-wrapper">
+        <header class="topbar-container glass-card">
+            <div class="topbar-search">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="telemetrySearch" onkeyup="filterTelemetryTable()" placeholder="Search corridor, city, vehicle or severity...">
+            </div>
+
+            <div class="topbar-actions">
+                <div class="user-profile-chip">
+                    <div class="avatar-box">
+                        <i class="fa-solid fa-user-astronaut"></i>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name">{{ username|capitalize }}</span>
+                        <span class="badge badge-primary">{{ role|upper }}</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="dashboard-hero">
+            <div class="hero-text-content">
+                <div class="hero-badge">
+                    <i class="fa-solid fa-car-burst text-primary"></i>
+                    <span>Real-Time Telemetry Data Stream</span>
+                </div>
+                <h1>Traffic Accident <span class="gradient-text">Telemetry Explorer</span></h1>
+                <p>Inspect detailed incident logs, filter by city or severity, and audit road accident metrics from <strong>{{ filename }}</strong>.</p>
+            </div>
+        </section>
+
+        <!-- KPI SUMMARY CARDS -->
+        <section class="kpi-grid">
+            <div class="kpi-card glass-card">
+                <div class="kpi-card-top">
+                    <div class="kpi-icon-box primary-glow"><i class="fa-solid fa-database"></i></div>
+                    <span class="kpi-trend trend-up">Active</span>
+                </div>
+                <div class="kpi-card-body">
+                    <h3 class="kpi-value num-font">{{ total_records }}</h3>
+                    <p class="kpi-label">Telemetry Events</p>
+                </div>
+            </div>
+
+            <div class="kpi-card glass-card">
+                <div class="kpi-card-top">
+                    <div class="kpi-icon-box danger-glow"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    <span class="kpi-trend trend-danger">Critical</span>
+                </div>
+                <div class="kpi-card-body">
+                    <h3 class="kpi-value num-font text-rose">{{ severities|length }}</h3>
+                    <p class="kpi-label">Severity Categories</p>
+                </div>
+            </div>
+
+            <div class="kpi-card glass-card">
+                <div class="kpi-card-top">
+                    <div class="kpi-icon-box violet-glow"><i class="fa-solid fa-city"></i></div>
+                    <span class="kpi-trend trend-violet">Locations</span>
+                </div>
+                <div class="kpi-card-body">
+                    <h3 class="kpi-value num-font text-violet">{{ cities|length }}</h3>
+                    <p class="kpi-label">Cities Audited</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TELEMETRY DATA TABLE CARD -->
+        <section class="admin-quick-hub glass-card" style="margin-top: 24px;">
+            <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div class="panel-title">
+                    <i class="fa-solid fa-table-list text-cyan"></i>
+                    <div>
+                        <h2>Detailed Incident Telemetry Log</h2>
+                        <p class="text-muted">Filtered output showing recorded accident telemetry</p>
+                    </div>
+                </div>
+                <div style="display:flex; gap:12px;">
+                    <select id="cityFilter" class="time-filter-dropdown" onchange="filterTelemetryTable()" style="padding:8px 14px; border-radius:8px; border:1px solid #CBD5E1;">
+                        <option value="">All Cities</option>
+                        {% for city in cities %}
+                        <option value="{{ city }}">{{ city }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="table-container" style="overflow-x: auto;">
+                <table class="users-table" id="telemetryTable" style="width:100%; border-collapse:collapse;">
+                    <thead>
+                        <tr style="background:#F1F5F9; text-align:left;">
+                            <th style="padding:14px;">Event ID</th>
+                            <th style="padding:14px;">Date / Time</th>
+                            <th style="padding:14px;">City</th>
+                            <th style="padding:14px;">Road Corridor</th>
+                            <th style="padding:14px;">Severity</th>
+                            <th style="padding:14px;">Vehicle Involved</th>
+                            <th style="padding:14px;">Weather Condition</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in records %}
+                        <tr style="border-bottom:1px solid #E2E8F0;">
+                            <td style="padding:12px 14px;" class="num-font">#TEL-{{ item.id }}</td>
+                            <td style="padding:12px 14px;">{{ item.date }}</td>
+                            <td style="padding:12px 14px;"><strong>{{ item.city }}</strong></td>
+                            <td style="padding:12px 14px;">{{ item.road }}</td>
+                            <td style="padding:12px 14px;">
+                                <span class="badge {% if item.severity in ['Critical', 'Fatal'] %}badge-danger{% elif item.severity in ['High', 'Warning'] %}badge-warning{% else %}badge-primary{% endif %}">
+                                    {{ item.severity }}
+                                </span>
+                            </td>
+                            <td style="padding:12px 14px;">{{ item.vehicle }}</td>
+                            <td style="padding:12px 14px;">{{ item.weather }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <footer class="dashboard-footer" style="margin-top:40px;">
+            <p>© 2026 TrafficVision AI Platform | Telemetry Explorer Service</p>
+        </footer>
+    </main>
+</div>
+
+<script>
+function filterTelemetryTable() {
+    let input = document.getElementById("telemetrySearch").value.toLowerCase();
+    let city = document.getElementById("cityFilter").value.toLowerCase();
+    let rows = document.querySelectorAll("#telemetryTable tbody tr");
+
+    rows.forEach(row => {
+        let text = row.innerText.toLowerCase();
+        let matchesSearch = text.includes(input);
+        let matchesCity = !city || text.includes(city);
+        row.style.display = (matchesSearch && matchesCity) ? "" : "none";
+    });
+}
+</script>
+
+{% endblock %}

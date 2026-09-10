@@ -1,0 +1,563 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard | TrafficVision AI
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-container">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            🚦 <span>TrafficVision AI</span>
+
+        </div>
+
+
+        <ul class="sidebar-menu">
+            <li>
+
+                <a href="{{ url_for('home') }}">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    <span>Back to Home</span>
+
+                </a>
+
+            </li>
+
+            <li class="active">
+                <a href="{{ url_for('dashboard.dashboard_page') }}">
+                    <i class="fa-solid fa-chart-line"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-car"></i>
+                    Traffic Analytics
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    Live Map
+                </a>
+            </li>
+
+            {% if role == "admin" %}
+
+            <li>
+                <a href="{{ url_for('upload.upload_dataset') }}">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    Upload Dataset
+                </a>
+            </li>
+
+            {% endif %}
+            {% if role == "admin" %}
+            <li>
+
+                <a href="{{ url_for('dataset_management.datasets_page') }}">
+
+                    <i class="fa-solid fa-database"></i>
+
+                    <span>Dataset Management</span>
+
+                </a>
+
+            </li>
+
+            {% endif %}
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-robot"></i>
+                    AI Assistant
+                </a>
+            </li>
+
+            <li>
+
+                <a href="{{ url_for('report.reports_page') }}">
+
+                    <i class="fa-solid fa-file-lines"></i>
+
+                    Reports
+
+                </a>
+
+            </li>
+
+            {% if role == "admin" %}
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-users"></i>
+                    Manage Users
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-gear"></i>
+                    Settings
+                </a>
+            </li>
+
+            {% endif %}
+
+            {% if role == "user" %}
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-user"></i>
+                    My Profile
+                </a>
+            </li>
+
+            {% endif %}
+
+            <li>
+                <a href="{{ url_for('auth.logout') }}">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+        <!-- ================= TOPBAR ================= -->
+
+        <header class="topbar">
+
+            <div class="search-box">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input type="text" placeholder="Search Dashboard...">
+
+            </div>
+
+            <div class="top-icons">
+
+                <i class="fa-regular fa-bell"></i>
+
+                <div class="profile">
+
+                    <i class="fa-solid fa-circle-user"></i>
+
+                    <span>{{ username|capitalize }}</span>
+
+                </div>
+
+
+            </div>
+
+        </header>
+
+        <!-- ================= WELCOME ================= -->
+
+        <section class="welcome">
+
+            <h1>
+
+                Welcome {{ username }} 👋
+
+            </h1>
+
+            <p>
+
+                {% if role=="admin" %}
+
+                Administrator Dashboard
+
+                {% else %}
+
+                User Dashboard
+
+                {% endif %}
+
+            </p>
+
+        </section>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+        {% for category, message in messages %}
+
+        <div class="success-message">
+
+            {{ message }}
+
+        </div>
+
+        {% endfor %}
+
+        {% endif %}
+
+        {% endwith %}
+
+        <!-- ================= KPI CARDS ================= -->
+
+        <section class="kpi-grid">
+
+            <div class="kpi-card">
+
+                <i class="fa-solid fa-car-crash"></i>
+
+                <h2>{{ kpis.total_accidents }}</h2>
+
+                <p>Total Accidents</p>
+
+            </div>
+
+            <div class="kpi-card">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                <h2>{{ kpis.fatal_accidents }}</h2>
+
+                <p>Fatal Accidents</p>
+
+            </div>
+
+            <div class="kpi-card">
+
+                <i class="fa-solid fa-road"></i>
+
+                <h2>{{ kpis.high_risk_roads }}</h2>
+
+                <p>High Risk Roads</p>
+
+            </div>
+
+            <div class="kpi-card">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <h2>{{ kpis.traffic_score }}%</h2>
+
+                <p>Traffic Score</p>
+
+            </div>
+            <div class="kpi-card">
+
+                <i class="fa-solid fa-city"></i>
+
+                <h2>{{ kpis.total_cities }}</h2>
+
+                <p>Cities Covered</p>
+
+            </div>
+
+            <div class="kpi-card">
+
+                <i class="fa-solid fa-car-side"></i>
+
+                <h2>{{ kpis.vehicle_types }}</h2>
+
+                <p>Vehicle Types</p>
+
+            </div>
+        </section>
+        <!-- ================= CHARTS ================= -->
+
+        <section class="chart-grid">
+
+            <div class="chart-card">
+
+                <h3>📈 Monthly Accident Trend</h3>
+
+                <canvas id="lineChart"></canvas>
+
+            </div>
+
+            <div class="chart-card">
+
+                <h3>🚗 Vehicle Distribution</h3>
+
+                <canvas id="pieChart"></canvas>
+
+            </div>
+
+        </section>
+
+        <!-- ================= SECOND ROW ================= -->
+
+        <section class="chart-grid">
+
+            <div class="chart-card">
+
+                <h3>🚦 High Risk Roads</h3>
+
+                <canvas id="barChart"></canvas>
+
+            </div>
+
+            <div class="chart-card">
+
+                <h3>🚨 Recent Alerts</h3>
+
+                <div class="alerts-container">
+
+                    {% if alerts %}
+
+                    {% for alert in alerts %}
+
+                    <div class="alert-item {{ alert.css }}">
+
+                        <div class="alert-left">
+
+                            <div class="alert-icon">
+
+                                {% if alert.severity == "Critical" %}
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                                {% elif alert.severity == "Warning" %}
+                                <i class="fa-solid fa-car-burst"></i>
+
+                                {% else %}
+                                <i class="fa-solid fa-circle-check"></i>
+
+                                {% endif %}
+
+                            </div>
+
+                            <div>
+
+                                <h4>{{ alert.road }}</h4>
+
+                                <p>{{ alert.severity }} Alert</p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="alert-right">
+
+                            <span class="badge {{ alert.css }}">
+
+                                {{ alert.severity }}
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                    {% else %}
+
+                    <p>No Recent Alerts Available.</p>
+
+                    {% endif %}
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= ADMIN QUICK ACTIONS ================= -->
+
+                {% if role == "admin" %}
+
+                <section class="ai-panel">
+
+                    <div class="ai-header">
+
+                        <h2>⚡ Admin Quick Actions</h2>
+
+                    </div>
+
+                    <div class="ai-content">
+
+                        <!-- Upload Dataset -->
+
+                        <div class="insight-card" onclick="window.location='{{ url_for('upload.upload_dataset') }}'"
+                            style="cursor:pointer;">
+
+                            <h3>📂 Upload Dataset</h3>
+
+                            <p>
+
+                                Upload new traffic datasets for
+                                analytics and AI processing.
+
+                            </p>
+
+                        </div>
+
+                        <!-- Manage Users -->
+
+                        <div class="insight-card"
+                            onclick="window.location='{{ url_for('manage_users.manage_users_page') }}'"
+                            style="cursor:pointer;">
+
+                            <h3>👥 Manage Users</h3>
+
+                            <p>
+
+                                Add, remove or update users
+                                and assign permissions.
+
+                            </p>
+
+                        </div>
+
+                        <!-- System Settings -->
+
+                        <div class="insight-card">
+                            <h3>⚙ System Settings</h3>
+                            <p> Configure AI, reports, notifications and platform settings. </p>
+                        </div>
+                    </div>
+                </section> {% endif %}
+                <!-- ================= AI INSIGHTS ================= -->
+
+                <section class="ai-panel">
+
+                    <div class="ai-header">
+
+                        <h2>🤖 AI Traffic Intelligence</h2>
+
+                        <span class="ai-badge">
+                            AI Analysis
+                        </span>
+
+                    </div>
+
+                    <div class="ai-grid">
+
+                        <!-- AI Insights -->
+
+                        <div class="ai-box">
+
+                            <h3>📊 AI Insights</h3>
+
+                            {% if insights %}
+
+                            {% for insight in insights %}
+
+                            <div class="ai-item">
+
+                                <span class="success-dot"></span>
+
+                                {{ insight }}
+
+                            </div>
+
+                            {% endfor %}
+
+                            {% else %}
+
+                            <div class="ai-item">
+
+                                Upload dataset to generate AI insights.
+
+                            </div>
+
+                            {% endif %}
+
+                        </div>
+
+                        <!-- AI Recommendations -->
+
+                        <div class="ai-box">
+
+                            <h3>💡 AI Recommendations</h3>
+
+                            {% if recommendation %}
+
+                            {% for item in recommendation %}
+
+                            <div class="ai-item">
+
+                                <span class="warning-dot"></span>
+
+                                {{ item }}
+
+                            </div>
+
+                            {% endfor %}
+
+                            {% else %}
+
+                            <div class="ai-item">
+
+                                Upload dataset to generate AI recommendations.
+
+                            </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <!-- ================= FOOTER ================= -->
+
+                <footer class="dashboard-footer">
+
+                    <p>
+
+                        © 2026 TrafficVision AI |
+                        Logged in as
+                        <strong>{{ role|capitalize }}</strong>
+
+                    </p>
+
+                </footer>
+
+    </main>
+
+</div>
+
+{% endblock %}
+
+{% block js %}
+
+<script>
+
+    const monthLabels = {{ charts.month_labels| tojson }};
+    const monthValues = {{ charts.month_values| tojson }};
+
+    const vehicleLabels = {{ charts.vehicle_labels| tojson }};
+    const vehicleValues = {{ charts.vehicle_values| tojson }};
+
+    const roadLabels = {{ charts.road_labels| tojson }};
+    const roadValues = {{ charts.road_values| tojson }};
+
+    const severityLabels = {{ charts.severity_labels| tojson }};
+    const severityValues = {{ charts.severity_values| tojson }};
+
+    const weatherLabels = {{ charts.weather_labels| tojson }};
+    const weatherValues = {{ charts.weather_values| tojson }};
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+{% endblock %}
