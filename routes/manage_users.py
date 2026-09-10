@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, session, redirect, url_for
 from database.connection import get_connection
+from werkzeug.security import generate_password_hash
 from flask import request, flash
 from flask import request
 manage_users = Blueprint("manage_users", __name__)
@@ -100,7 +101,7 @@ def add_user():
         (?, ?, ?)
     """, (
         username,
-        password,
+        generate_password_hash(password),
         role
     ))
 

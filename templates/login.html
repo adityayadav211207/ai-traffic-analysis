@@ -29,6 +29,13 @@ Sign In | TrafficVision
         </div>
         {% endif %}
 
+        {% if registered %}
+        <div class="alert-success" role="status">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Account created. Sign in to continue.</span>
+        </div>
+        {% endif %}
+
         <form action="{{ url_for('auth.login') }}" method="POST" class="auth-form" id="loginForm">
             <input type="hidden" name="next" value="{{ next_url or url_for('dashboard.dashboard_page') }}">
             <div class="form-group">
@@ -39,7 +46,7 @@ Sign In | TrafficVision
             <div class="form-group">
                 <div class="label-row">
                     <label for="password">Password</label>
-                    <a href="#" class="forgot-link">Forgot?</a>
+                    <a href="{{ url_for('auth.forgot_password') }}" class="forgot-link">Forgot?</a>
                 </div>
                 <div class="password-wrap">
                     <input type="password" id="password" name="password" placeholder="Enter password" required autocomplete="current-password">
@@ -60,6 +67,9 @@ Sign In | TrafficVision
         </form>
 
         <div class="login-footer">
+            <span>New user?</span>
+            <a href="{{ url_for('auth.register', next=next_url) }}">Create an account</a>
+            <span class="footer-divider">|</span>
             <a href="{{ url_for('home') }}">Back to home</a>
         </div>
     </div>

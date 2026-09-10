@@ -1,8 +1,1 @@
-INSERT OR IGNORE INTO users
-(username, password, role)
-
-VALUES
-
-('admin', 'admin123', 'admin'),
-
-('user', 'user123', 'user');
+-- Users are created through the registration flow or by an authenticated admin.
