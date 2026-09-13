@@ -8,4 +8,8 @@ create table if not exists public.users (
 
 alter table public.users enable row level security;
 
+create unique index if not exists one_admin_account
+on public.users (role)
+where role = 'admin';
+
 -- Server-side service-role access is used by Flask. Do not expose that key in browser code.

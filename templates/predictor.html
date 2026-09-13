@@ -193,7 +193,6 @@ AI Risk Predictor | TrafficVision AI Intelligence
                 </li>
             </ul>
 
-            {% if role == "admin" %}
             <div class="nav-category">DATA & MANAGEMENT</div>
             <ul class="nav-list">
                 <li>
@@ -202,6 +201,7 @@ AI Risk Predictor | TrafficVision AI Intelligence
                         <span>Upload Dataset</span>
                     </a>
                 </li>
+                {% if role == "admin" %}
                 <li>
                     <a href="{{ url_for('dataset_management.datasets_page') }}" class="nav-item">
                         <i class="fa-solid fa-database"></i>
@@ -211,11 +211,11 @@ AI Risk Predictor | TrafficVision AI Intelligence
                 <li>
                     <a href="{{ url_for('manage_users.manage_users_page') }}" class="nav-item">
                         <i class="fa-solid fa-users-gear"></i>
-                        <span>User Management</span>
+                        <span>Manage Users</span>
                     </a>
                 </li>
+                {% endif %}
             </ul>
-            {% endif %}
         </nav>
 
         <div class="sidebar-user-footer">

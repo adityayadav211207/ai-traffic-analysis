@@ -27,7 +27,10 @@ Manage Users
 
     <!-- Header -->
     <div class="page-header">
-        <h1>👥 Manage Users</h1>
+        <div class="page-title-wrap">
+            <span class="page-title-icon">👥</span>
+            <h1>Manage Users</h1>
+        </div>
         <p>Manage all system users and assign their roles.</p>
     </div>
 
@@ -169,12 +172,7 @@ ADD USER MODAL
 
             <label>Role</label>
 
-            <select name="role">
-
-                <option value="admin">Admin</option>
-                <option value="user">User</option>
-
-            </select>
+            <input type="text" value="User" readonly>
 
             <div class="modal-buttons">
 
@@ -223,7 +221,6 @@ EDIT USER MODAL
 
             <select id="editRole" name="role">
 
-                <option value="admin">Admin</option>
                 <option value="user">User</option>
 
             </select>

@@ -26,7 +26,8 @@ def login():
         if supabase_is_configured():
             try:
                 user = get_supabase_user(username)
-            except Exception:
+            except Exception as error:
+                print(f"[TrafficVision Auth] Supabase lookup failed: {type(error).__name__}: {error}")
                 return render_template("login.html", next_url=next_url, error="Authentication service is unavailable. Please try again.")
         else:
             conn = get_connection()

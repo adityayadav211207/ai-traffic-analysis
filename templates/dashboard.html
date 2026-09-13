@@ -91,7 +91,6 @@ Traffic Dashboard | TrafficVision
                 </li>
             </ul>
 
-            {% if role == "admin" %}
             <div class="nav-category">DATA & MANAGEMENT</div>
             
             <ul class="nav-list">
@@ -101,6 +100,7 @@ Traffic Dashboard | TrafficVision
                         <span>Upload Dataset</span>
                     </a>
                 </li>
+                {% if role == "admin" %}
                 <li>
                     <a href="{{ url_for('dataset_management.datasets_page') }}" class="nav-item">
                         <i class="fa-solid fa-database"></i>
@@ -119,8 +119,8 @@ Traffic Dashboard | TrafficVision
                         <span>System Settings</span>
                     </a>
                 </li>
+                {% endif %}
             </ul>
-            {% endif %}
 
             <div class="nav-category">ACCOUNT</div>
             
@@ -660,7 +660,7 @@ Traffic Dashboard | TrafficVision
         <!-- ==========================================
                     ADMIN QUICK ACTIONS HUB
         ========================================== -->
-        {% if role == "admin" %}
+        {% if role in ["admin", "user"] %}
         <section class="admin-quick-hub glass-card">
             <div class="panel-header">
                 <div class="panel-title">

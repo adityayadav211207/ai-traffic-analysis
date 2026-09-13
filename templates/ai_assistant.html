@@ -82,7 +82,6 @@ AI Assistant | TrafficVision AI Intelligence
                 </li>
             </ul>
 
-            {% if role == "admin" %}
             <div class="nav-category">DATA & MANAGEMENT</div>
             <ul class="nav-list">
                 <li>
@@ -91,6 +90,7 @@ AI Assistant | TrafficVision AI Intelligence
                         <span>Upload Dataset</span>
                     </a>
                 </li>
+                {% if role == "admin" %}
                 <li>
                     <a href="{{ url_for('dataset_management.datasets_page') }}" class="nav-item">
                         <i class="fa-solid fa-database"></i>
@@ -109,8 +109,8 @@ AI Assistant | TrafficVision AI Intelligence
                         <span>System Settings</span>
                     </a>
                 </li>
+                {% endif %}
             </ul>
-            {% endif %}
 
             <div class="nav-category">ACCOUNT</div>
             <ul class="nav-list">

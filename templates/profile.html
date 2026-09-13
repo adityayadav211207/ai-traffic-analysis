@@ -75,7 +75,6 @@ My Profile | TrafficVision AI
                 </li>
             </ul>
 
-            {% if role == "admin" %}
             <div class="nav-category">DATA & MANAGEMENT</div>
             <ul class="nav-list">
                 <li>
@@ -84,6 +83,7 @@ My Profile | TrafficVision AI
                         <span>Upload Dataset</span>
                     </a>
                 </li>
+                {% if role == "admin" %}
                 <li>
                     <a href="{{ url_for('dataset_management.datasets_page') }}" class="nav-item">
                         <i class="fa-solid fa-database"></i>
@@ -102,8 +102,8 @@ My Profile | TrafficVision AI
                         <span>System Settings</span>
                     </a>
                 </li>
+                {% endif %}
             </ul>
-            {% endif %}
 
             <div class="nav-category">ACCOUNT</div>
             <ul class="nav-list">

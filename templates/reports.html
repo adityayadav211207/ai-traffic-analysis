@@ -109,6 +109,11 @@ Reports | TrafficVision AI
             <h3>🚦 High Risk Roads</h3>
             <canvas id="barChart"></canvas>
         </div>
+
+        <div class="chart-card">
+            <h3>🌦 Weather Impact</h3>
+            <canvas id="weatherChart"></canvas>
+        </div>
     </div>
 
     <h2 class="section-title">Recent Alerts</h2>
@@ -166,23 +171,20 @@ Reports | TrafficVision AI
 {% block js %}
 
 <script>
-    const monthLabels = {{ charts.month_labels | tojson }};
-    const monthValues = {{ charts.month_values | tojson }};
-
-    const vehicleLabels = {{ charts.vehicle_labels | tojson }};
-    const vehicleValues = {{ charts.vehicle_values | tojson }};
-
-    const roadLabels = {{ charts.road_labels | tojson }};
-    const roadValues = {{ charts.road_values | tojson }};
-
-    const severityLabels = {{ charts.severity_labels | tojson }};
-    const severityValues = {{ charts.severity_values | tojson }};
-
-    const weatherLabels = {{ charts.weather_labels | tojson }};
-    const weatherValues = {{ charts.weather_values | tojson }};
-
-    const cityLabels = {{ charts.city_labels | tojson }};
-    const cityValues = {{ charts.city_values | tojson }};
+    window.dashboardData = {
+        monthLabels: {{ charts.month_labels | tojson }},
+        monthValues: {{ charts.month_values | tojson }},
+        vehicleLabels: {{ charts.vehicle_labels | tojson }},
+        vehicleValues: {{ charts.vehicle_values | tojson }},
+        roadLabels: {{ charts.road_labels | tojson }},
+        roadValues: {{ charts.road_values | tojson }},
+        severityLabels: {{ charts.severity_labels | tojson }},
+        severityValues: {{ charts.severity_values | tojson }},
+        weatherLabels: {{ charts.weather_labels | tojson }},
+        weatherValues: {{ charts.weather_values | tojson }},
+        cityLabels: {{ charts.city_labels | tojson }},
+        cityValues: {{ charts.city_values | tojson }}
+    };
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

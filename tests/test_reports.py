@@ -6,6 +6,14 @@ from openpyxl import load_workbook
 from services.export_excel import generate_excel_report
 
 
+def test_reports_template_wires_dashboard_data_and_weather_canvas():
+    template_path = Path("templates/reports.html")
+    template_text = template_path.read_text(encoding="utf-8")
+
+    assert "window.dashboardData" in template_text
+    assert 'id="weatherChart"' in template_text
+
+
 def test_generate_excel_report_contains_executive_tabs(tmp_path):
     df = pd.DataFrame(
         [

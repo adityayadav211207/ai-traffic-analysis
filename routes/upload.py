@@ -25,10 +25,6 @@ def upload_dataset():
     if "username" not in session:
         return redirect(url_for("auth.login"))
 
-    # Admin Only
-    if session["role"] != "admin":
-        return redirect(url_for("dashboard.dashboard_page"))
-
     if request.method == "POST":
 
         # -------------------------

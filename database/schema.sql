@@ -35,3 +35,7 @@ CREATE TABLE IF NOT EXISTS datasets (
     is_active INTEGER DEFAULT 0
 
 );
+
+CREATE UNIQUE INDEX IF NOT EXISTS one_admin_account
+ON users (role)
+WHERE role = 'admin';
